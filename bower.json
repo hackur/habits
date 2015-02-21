@@ -1,0 +1,19 @@
+{
+  "name": "frankyco",
+  "version": "0.0.0",
+  "authors": [
+    "Franky Chung <franchun@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize-css": "~3.0.2"
+  }
+}

@@ -1,0 +1,9 @@
+[ignore]
+*
+
+[libs]
+lib/
+
+[include]
+app/
+

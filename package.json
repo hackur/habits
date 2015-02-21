@@ -1,0 +1,47 @@
+{
+  "name": "keepalogbook",
+  "version": "0.0.0",
+  "description": "Keep a logbook",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev-server": "webpack-dev-server --content-base build/ --config webpack-dev-server.config.js --hot --progress --colors --port 2992 --inline",
+    "build": "webpack --config webpack-production.config.js --progress --profile --colors",
+    "start-dev": "node server-development",
+    "build-index": "node server-build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:frankychung/keepalogbook.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "0.9.1",
+    "express": "4.11.1",
+    "extract-text-webpack-plugin": "0.3.8",
+    "firebase": "2.1.2",
+    "flux": "2.0.1",
+    "immutable": "3.6.2",
+    "jsx-loader": "0.12.2",
+    "keymirror": "0.1.1",
+    "less": "2.2.0",
+    "less-loader": "2.0.0",
+    "lodash": "3.1.0",
+    "lodash-node": "2.4.1",
+    "marked": "0.3.2",
+    "moment": "2.9.0",
+    "ncp": "1.0.1",
+    "object-assign": "2.0.0",
+    "react": "0.12.2",
+    "react-hot-loader": "1.1.1",
+    "react-router": "0.12.0",
+    "react-textarea-autosize": "^1.1.0",
+    "rsvp": "3.0.14",
+    "style-loader": "0.8.3",
+    "superagent": "0.21.0",
+    "webpack": "1.5.3",
+    "webpack-dev-server": "1.7.0",
+    "yaml-front-matter": "3.2.3"
+  }
+}
