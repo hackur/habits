@@ -1,0 +1,29 @@
+.font-size(@font-size) {
+  font-size: unit(@font-size, px);
+  font-size: unit((@font-size/@base-font-size), rem);
+}
+
+
+.font-size(@font-size, true) {
+  font-size: unit(@font-size, px);
+  font-size: unit((@font-size/@base-font-size), rem);
+  line-height: ceil(@font-size/@base-line-height) * (@base-line-height/@font-size);
+}
+
+
+.serif() {
+  font-family: 'PT Serif', 'serif';
+}
+
+
+.sans-serif() {
+  font-family: 'PT Sans', 'sans-serif';
+}
+
+
+.responsive(@min-width; @rules) {
+  @media only screen and (min-width: @min-width) {
+    @rules();
+  }
+}
+
