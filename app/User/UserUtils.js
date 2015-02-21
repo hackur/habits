@@ -23,7 +23,6 @@ module.exports = {
   getNewUserData: function(user: User, auth: Auth): {meta: UserMeta} {
     return {
       meta: {
-        share: false,
         active: true,
         displayName: getDisplayNameFromAuth(auth)
       }
