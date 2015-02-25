@@ -15,7 +15,8 @@ require('./Outside.less');
 
 var Outside = React.createClass({
   propTypes: {
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    children: PropTypes.any.isRequired
   },
 
   mixins: [PureRenderMixin, Navigation],

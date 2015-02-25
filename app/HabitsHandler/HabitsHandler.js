@@ -15,7 +15,7 @@ var StoresMixin = require('../StoresMixin');
 
 var HabitsHandler = React.createClass({
   propTypes: {
-    user: PropTypes.object.isRequired
+    user: PropTypes.object
   },
 
   mixins: [StoresMixin, PureRenderMixin],
@@ -29,6 +29,8 @@ var HabitsHandler = React.createClass({
   },
 
   render()/*: any*/ {
+    if (!this.props.user) { return null; }
+
     return (
       <div>
         <Habits habits={this.state.habits}

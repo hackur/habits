@@ -5,9 +5,8 @@
 'use strict';
 
 var React = require('react/addons');
-var { PureRenderMixin } = React.addons;
 var { RouteHandler, Navigation, State } = require('react-router');
-// var isEmpty = require('lodash/lang/isEmpty');
+var isEmpty = require('lodash/lang/isEmpty');
 var reduce = require('lodash/collection/reduce');
 
 var AppHandlerViewActionCreators = require('./AppHandlerViewActionCreators');
@@ -33,8 +32,7 @@ var AppHandler = React.createClass({
   mixins: [
     StoresMixin,
     Navigation,
-    State,
-    PureRenderMixin
+    State
   ],
 
   getStateFromStores()/*: Object*/ {
@@ -44,7 +42,7 @@ var AppHandler = React.createClass({
   },
 
   componentDidMount() {
-    // var params = this.getParams();
+    var params = this.getParams();
     var pathname = this.getPathname();
     var insidePaths = [
       'habits',
@@ -57,9 +55,9 @@ var AppHandler = React.createClass({
       false
     );
 
-    if (!isInside && this.state.user.get('auth')) {
+    if (!isInside && isEmpty(params) && this.state.user.get('auth')) {
       this.replaceWith('habits');
-    } else if (isInside && !this.state.user.get('auth')) {
+    } else if ((isInside || !isEmpty(params)) && !this.state.user.get('auth')) {
       this.replaceWith('front');
     }
   },
