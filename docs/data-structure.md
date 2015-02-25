@@ -1,42 +1,40 @@
 ``` javascript
 {
-  "modifieduid1": { // Don't access this one because it gets big
-    days: {
-      "20151201": {count: 3},
-      "20141105": {count: 2},
+  "uid1": {
+    "habits": {
+      "pushedid1": {
+        streak: 32,
+        last: 20150203,
+        name: "Brush teeth"
+      },
+
+      "pushedid2": {
+        streak: 0,
+        last: 20150201,
+        name: "Eat vegetables"
+      },
       ...
     },
 
-    data: {
-      "20150201": {
-        "pushedUniqueId1": {
-          "log": "Thing you did",
-          "ts": 13513525223
+    "data": {
+      "pushedid1": {
+        days: {
+          20150201: true,
+          20150202: true,
+          ...
         }
-
-        "pushedUniqueId2": {
-          "log": "Another thing you did",
-          "stamp": 13513525223
-        },
-        ...
       },
-
-      "20150201": {
-        ...  
-      },
-
       ...
     },
 
     meta: {
-      share: false,
       active: true,
       displayName: "Something"
     }
 
   },
 
-  "modifieduid2": {
+  "uid2": {
     ...
   }
 }

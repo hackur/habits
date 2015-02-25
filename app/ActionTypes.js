@@ -9,5 +9,9 @@ module.exports = keyMirror({
   RECEIVE_LOGGED_OUT: null,
 
   // user
-  RECEIVE_USER_META: null
+  RECEIVE_USER_META: null,
+
+  // habits
+  CHANGE_NEW_HABIT: null,
+  SUBMIT_NEW_HABIT: null
 });

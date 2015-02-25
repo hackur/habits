@@ -7,6 +7,8 @@
 var React = require('react/addons');
 var { PureRenderMixin } = React.addons;
 var { RouteHandler, Navigation, State } = require('react-router');
+// var isEmpty = require('lodash/lang/isEmpty');
+var reduce = require('lodash/collection/reduce');
 
 var AppHandlerViewActionCreators = require('./AppHandlerViewActionCreators');
 var UserStore = require('../User/UserStore');
@@ -35,22 +37,50 @@ var AppHandler = React.createClass({
     PureRenderMixin
   ],
 
-  getStateFromStores(): Object {
+  getStateFromStores()/*: Object*/ {
     return {
       user: UserStore.get()
     };
   },
 
-  render(): any {
+  componentDidMount() {
+    // var params = this.getParams();
+    var pathname = this.getPathname();
+    var insidePaths = [
+      'habits'
+    ];
+
+    var isInside = reduce(
+      insidePaths,
+      (inside, path) => inside || pathname.indexOf(path) > -1,
+      false
+    );
+
+    if (!isInside && this.state.user.get('auth')) {
+      this.replaceWith('habits');
+    } else if (isInside && !this.state.user.get('auth')) {
+      this.replaceWith('front');
+    }
+  },
+
+  componentDidUpdate(prevProps/*: any*/, prevState/*: any*/) {
+    if (!prevState.user.get('auth') && this.state.user.get('auth')) {
+      this.replaceWith('habits');
+    } else if (prevState.user.get('auth') && !this.state.user.get('auth')) {
+      this.replaceWith('front');
+    }
+  },
+
+  render()/*: any*/ {
     var insideHandler = this.state.user.get('user') ?
-      <RouteHandler user={this.state.user} key='inside' /> : null;
+      <RouteHandler user={this.state.user} key="inside" /> : null;
 
     var content = this.state.user.get('auth') ?
       <Inside user={this.state.user}>
         {insideHandler}
       </Inside> :
       <Outside user={this.state.user}>
-        <RouteHandler key='outside' />
+        <RouteHandler key="outside" />
       </Outside>;
 
     return (

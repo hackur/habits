@@ -15,7 +15,8 @@ var ActionTypes = require('../ActionTypes');
 
 var _user = Immutable.Map({
   user: null,
-  auth: null
+  auth: null,
+  habits: Immutable.OrderedMap()
 });
 
 function receiveAuth(action) {
