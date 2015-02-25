@@ -47,7 +47,8 @@ var AppHandler = React.createClass({
     // var params = this.getParams();
     var pathname = this.getPathname();
     var insidePaths = [
-      'habits'
+      'habits',
+      'new'
     ];
 
     var isInside = reduce(

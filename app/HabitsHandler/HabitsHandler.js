@@ -7,6 +7,7 @@
 var React = require('react/addons');
 var { PureRenderMixin } = React.addons;
 var { PropTypes } = React;
+var { Link } = require('react-router');
 
 var Habits = require('../Habits/Habits');
 var HabitsStore = require('../Habits/HabitsStore');
@@ -33,6 +34,7 @@ var HabitsHandler = React.createClass({
         <Habits habits={this.state.habits}
           user={this.props.user}
         />
+        <Link to="new">New habit</Link>
       </div>
     );
   }
