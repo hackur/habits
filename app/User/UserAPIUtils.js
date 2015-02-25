@@ -24,7 +24,20 @@ function stopListeningToUserMeta(user: User) {
   return firebaseUtils.stopListeningToValue(user.dataUrl + '/meta');
 }
 
+function listenToHabits(user: User) {
+  var habitsUrl = user.dataUrl + '/habits';
+  firebaseUtils.listenToChildAdded(habitsUrl, UserServerActionCreators.receiveAddedHabit);
+  firebaseUtils.listenToChildRemoved(habitsUrl, UserServerActionCreators.receiveRemovedHabit);
+  firebaseUtils.listenToChildChanged(habitsUrl, UserServerActionCreators.receiveChangedHabit);
+}
+
+function stopListeningToHabits(user: User) {
+  firebaseUtils.stopListeningToChildren(user.dataUrl + '/habits');
+}
+
 module.exports = {
   listenToUserMeta,
-  stopListeningToUserMeta
+  stopListeningToUserMeta,
+  listenToHabits,
+  stopListeningToHabits
 };

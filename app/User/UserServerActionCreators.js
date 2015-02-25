@@ -6,6 +6,7 @@
 
 var ActionTypes = require('../ActionTypes');
 var Dispatcher = require('../Dispatcher');
+var curry = require('lodash/function/curry');
 
 function receiveUserMeta(meta: UserMeta) {
   Dispatcher.handleAction({
@@ -27,8 +28,20 @@ function receiveLoggedOut() {
   });
 }
 
+function receiveHabitDef(type: string, rawHabit: RawHabit) {
+  Dispatcher.handleAction({
+    type,
+    rawHabit
+  });
+}
+
+var receiveHabit = curry(receiveHabitDef);
+
 module.exports = {
   receiveUserMeta,
   receiveAuth,
-  receiveLoggedOut
+  receiveLoggedOut,
+  receiveAddedHabit: receiveHabit(ActionTypes.RECEIVE_ADDED_HABIT),
+  receiveRemovedHabit: receiveHabit(ActionTypes.RECEIVE_REMOVED_HABIT),
+  receiveChangedHabit: receiveHabit(ActionTypes.RECEIVE_CHANGED_HABIT)
 };

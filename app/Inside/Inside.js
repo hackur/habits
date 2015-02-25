@@ -26,10 +26,13 @@ var Inside = React.createClass({
       this.props.user.get('user'),
       this.props.user.get('auth')
     );
+
+    UserViewActionCreators.listenToHabits(this.props.user.get('user'));
   },
 
   componentWillUnmount() {
     UserViewActionCreators.stopListeningToUserMeta(this.props.user.get('user'));
+    UserViewActionCreators.stopListeningToHabits(this.props.user.get('user'));
   },
 
   render(): any {

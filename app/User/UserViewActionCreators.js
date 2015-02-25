@@ -14,7 +14,17 @@ function stopListeningToUserMeta(user: Object) {
   return UserAPIUtils.stopListeningToUserMeta(user.toJS());
 }
 
+function listenToHabits(user: Object) {
+  return UserAPIUtils.listenToHabits(user.toJS());
+}
+
+function stopListeningToHabits(user: Object) {
+  return UserAPIUtils.stopListeningToHabits(user.toJS());
+}
+
 module.exports = {
   listenToUserMeta,
-  stopListeningToUserMeta
+  stopListeningToUserMeta,
+  listenToHabits,
+  stopListeningToHabits
 };

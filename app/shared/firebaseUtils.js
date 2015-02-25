@@ -140,10 +140,10 @@ function remove(path: string): Promise {
   return promise;
 }
 
-function push(path: string, value: Object|string): Promise {
+function push(path: string, value: Object|string): string {
   var ref = new Firebase(firebaseUrl + path);
-  ref.push(value);
-  return ref.key();
+  var pushed = ref.push(value);
+  return pushed.key();
 }
 
 module.exports = {

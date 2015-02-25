@@ -10,6 +10,7 @@ var Immutable = require('immutable');
 var assign = require('lodash/object/assign');
 
 var UserUtils = require('./UserUtils');
+var HabitUtils = require('../Habit/HabitUtils');
 var Store = require('../Store');
 var ActionTypes = require('../ActionTypes');
 
@@ -32,10 +33,16 @@ function receiveUserMeta(action) {
   _user = _user.update('user', user => user.merge({meta: action.meta}));
 }
 
+function receiveAddedHabit(action/*: {rawHabit: RawHabit}*/) {
+  var converted = HabitUtils.convertRawHabit(action.rawHabit);
+  _user = _user.setIn(['habits', action.rawHabit.key], converted);
+}
+
 var actions = {};
 actions[ActionTypes.RECEIVE_AUTH] = receiveAuth;
 actions[ActionTypes.RECEIVE_LOGGED_OUT] = receiveLoggedOut;
 actions[ActionTypes.RECEIVE_USER_META] = receiveUserMeta;
+actions[ActionTypes.RECEIVE_ADDED_HABIT] = receiveAddedHabit;
 
 module.exports = assign(new Store(actions), {
   initialize() {

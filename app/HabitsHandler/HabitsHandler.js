@@ -30,7 +30,9 @@ var HabitsHandler = React.createClass({
   render()/*: any*/ {
     return (
       <div>
-        <Habits habits={this.state.habits} />
+        <Habits habits={this.state.habits}
+          user={this.props.user}
+        />
       </div>
     );
   }
