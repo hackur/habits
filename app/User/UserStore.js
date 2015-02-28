@@ -33,7 +33,7 @@ function receiveUserMeta(action) {
   _user = _user.update('user', user => user.merge({meta: action.meta}));
 }
 
-function receiveAddedHabit(action/*: {rawHabit: RawHabit}*/) {
+function receiveAddedHabit(action: {rawHabit: RawHabit}) {
   var converted = HabitUtils.convertRawHabit(action.rawHabit);
   _user = _user.setIn(['habits', action.rawHabit.key], converted);
 }

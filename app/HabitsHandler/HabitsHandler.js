@@ -8,10 +8,13 @@ var React = require('react/addons');
 var { PureRenderMixin } = React.addons;
 var { PropTypes } = React;
 var { Link } = require('react-router');
+var compose = require('lodash/function/compose');
 
 var Habits = require('../Habits/Habits');
 var HabitsStore = require('../Habits/HabitsStore');
 var StoresMixin = require('../StoresMixin');
+
+var dateUtils = require('../shared/dateUtils');
 
 var HabitsHandler = React.createClass({
   propTypes: {
@@ -22,17 +25,25 @@ var HabitsHandler = React.createClass({
 
   stores: [HabitsStore],
 
-  getStateFromStores()/*: Object*/ {
+  getStateFromStores(): Object {
     return {
       habits: HabitsStore.get()
     };
   },
 
-  render()/*: any*/ {
+  render(): any {
     if (!this.props.user) { return null; }
+
+    var todayDisplay = compose(
+      dateUtils.formatMoment('ll'),
+      dateUtils.getCurrentMoment
+    )();
 
     return (
       <div>
+        <div>
+          {todayDisplay}
+        </div>
         <Habits habits={this.state.habits}
           user={this.props.user}
         />
