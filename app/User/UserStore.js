@@ -43,6 +43,7 @@ actions[ActionTypes.RECEIVE_AUTH] = receiveAuth;
 actions[ActionTypes.RECEIVE_LOGGED_OUT] = receiveLoggedOut;
 actions[ActionTypes.RECEIVE_USER_META] = receiveUserMeta;
 actions[ActionTypes.RECEIVE_ADDED_HABIT] = receiveAddedHabit;
+actions[ActionTypes.RECEIVE_CHANGED_HABIT] = receiveAddedHabit;
 
 module.exports = assign(new Store(actions), {
   initialize() {

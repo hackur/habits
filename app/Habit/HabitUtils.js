@@ -32,7 +32,7 @@ function checkLastIsToday(last: ?string): boolean {
 
 function isOnStreak(last: ?string): boolean {
   if (!last) {
-    return 0;
+    return false;
   }
 
   return checkLastIsPreviousDay(last) || checkLastIsToday(last);
