@@ -14,7 +14,7 @@ var Habits = require('../Habits/Habits');
 var HabitsStore = require('../Habits/HabitsStore');
 var StoresMixin = require('../StoresMixin');
 
-var dateUtils = require('../shared/dateUtils');
+var { formatMoment, getCurrentMoment } = require('../shared/dateUtils');
 
 var HabitsHandler = React.createClass({
   propTypes: {
@@ -34,10 +34,7 @@ var HabitsHandler = React.createClass({
   render(): any {
     if (!this.props.user) { return null; }
 
-    var todayDisplay = compose(
-      dateUtils.formatMoment('ll'),
-      dateUtils.getCurrentMoment
-    )();
+    var todayDisplay = compose(formatMoment('ll'), getCurrentMoment)();
 
     return (
       <div>

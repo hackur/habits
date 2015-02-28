@@ -35,7 +35,7 @@ var AppHandler = React.createClass({
     State
   ],
 
-  getStateFromStores()/*: Object*/ {
+  getStateFromStores(): Object {
     return {
       user: UserStore.get()
     };
@@ -62,7 +62,7 @@ var AppHandler = React.createClass({
     }
   },
 
-  componentDidUpdate(prevProps/*: any*/, prevState/*: any*/) {
+  componentDidUpdate(prevProps: any, prevState: any) {
     if (!prevState.user.get('auth') && this.state.user.get('auth')) {
       this.replaceWith('habits');
     } else if (prevState.user.get('auth') && !this.state.user.get('auth')) {
@@ -70,7 +70,7 @@ var AppHandler = React.createClass({
     }
   },
 
-  render()/*: any*/ {
+  render(): any {
     var insideHandler = this.state.user.get('user') ?
       <RouteHandler user={this.state.user} key="inside" /> : null;
 

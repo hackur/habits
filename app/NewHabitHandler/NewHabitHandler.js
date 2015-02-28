@@ -22,17 +22,17 @@ var NewHabitHandler = React.createClass({
 
   stores: [HabitsStore],
 
-  getStateFromStores()/*: Object*/ {
+  getStateFromStores(): Object {
     return {
       habits: HabitsStore.get()
     };
   },
 
-  handleChangeNewHabit(e/*: Object*/) {
+  handleChangeNewHabit(e: Object) {
     HabitsViewActionCreators.changeNewHabit(e.target.value);
   },
 
-  handleKeyDownNewHabit(e/*: Object*/) {
+  handleKeyDownNewHabit(e: Object) {
     if (e.keyCode === 13 && (e.metaKey || e.ctrlKey)) {
       HabitsViewActionCreators.submitNewHabit(
         this.props.user.get('user'),
@@ -43,7 +43,7 @@ var NewHabitHandler = React.createClass({
     }
   },
 
-  render()/*: any*/ {
+  render(): any {
     return (
       <div>
         <input value={this.state.habits.get('newHabit')}
