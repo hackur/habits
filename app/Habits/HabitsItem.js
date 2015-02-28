@@ -15,7 +15,7 @@ var HabitsItem = React.createClass({
 
   mixins: [PureRenderMixin],
 
-  handleFinish(e: Object) {
+  handleComplete(e: Object) {
     e.preventDefault();
   },
 
@@ -28,7 +28,7 @@ var HabitsItem = React.createClass({
       <div>
         {this.props.habit.get('name')}
         <div>
-          <a href="#" onClick={this.handleFinish}>Finish</a>
+          <a href="#" onClick={this.handleComplete}>Complete</a>
           <a href="#" onClick={this.handleGoTo}>More</a>
         </div>
       </div>
