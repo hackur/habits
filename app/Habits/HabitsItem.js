@@ -31,9 +31,13 @@ var HabitsItem = React.createClass({
       null :
       <a href="#" onClick={this.handleComplete}>Complete</a>;
 
+    var check = this.props.habit.get('lastIsToday') ?
+      <div>Done</div> : null;
+
     return (
       <div>
         {this.props.habit.get('name')}
+        {check}
         <div>
           Streak:
           {' '}
