@@ -34,7 +34,7 @@ function receiveUserMeta(action) {
 }
 
 function receiveAddedHabit(action: {rawHabit: RawHabit}) {
-  var converted = HabitUtils.convertRawHabit(action.rawHabit);
+  var converted = HabitUtils.convertRawHabit(action.rawHabit, _user.get('user'));
   _user = _user.setIn(['habits', action.rawHabit.key], converted);
 }
 
