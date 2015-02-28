@@ -25,7 +25,6 @@
     "firebase": "2.1.2",
     "flux": "2.0.1",
     "immutable": "3.6.2",
-    "jsx-loader": "0.12.2",
     "keymirror": "0.1.1",
     "less": "2.2.0",
     "less-loader": "2.0.0",
