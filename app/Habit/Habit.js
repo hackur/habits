@@ -18,7 +18,7 @@ var Habit = React.createClass({
   render(): any {
     return (
       <div>
-        {this.props.habit.get('name')}
+        Habit!
       </div>
     );
   }

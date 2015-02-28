@@ -8,7 +8,7 @@ var React = require('react/addons');
 var { PureRenderMixin } = React.addons;
 var { PropTypes } = React;
 
-var Habit = require('../Habit/Habit');
+var HabitsItem = require('./HabitsItem');
 
 var Habits = React.createClass({
   propTypes: {
@@ -19,7 +19,7 @@ var Habits = React.createClass({
 
   render(): any {
     var habits = this.props.user.get('habits').map(habit => (
-      <Habit key={habit.get('key')}
+      <HabitsItem key={habit.get('key')}
         habit={habit}
       />
     )).toArray();
