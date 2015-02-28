@@ -35,6 +35,11 @@ var HabitsItem = React.createClass({
       <div>
         {this.props.habit.get('name')}
         <div>
+          Streak:
+          {' '}
+          {this.props.habit.get('streak')}
+        </div>
+        <div>
           {completeButton}
           <a href="#" onClick={this.handleGoTo}>More</a>
         </div>
