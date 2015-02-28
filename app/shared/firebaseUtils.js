@@ -89,7 +89,7 @@ function stopListeningToChildren(path: string) {
 
 // Write data
 
-function setAtPath(path: string, value: Object|string): Promise {
+function setAtPath(path: string, value: Object|string|boolean): Promise {
   var ref = new Firebase(firebaseUrl + path);
 
   var promise = new RSVP.Promise(function(resolve, reject) {

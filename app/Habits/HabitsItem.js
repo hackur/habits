@@ -8,6 +8,8 @@ var React = require('react/addons');
 var { PureRenderMixin } = React.addons;
 var { PropTypes } = React;
 
+var HabitViewActionCreators = require('../Habit/HabitViewActionCreators');
+
 var HabitsItem = React.createClass({
   propTypes: {
     habit: PropTypes.object.isRequired
@@ -17,6 +19,7 @@ var HabitsItem = React.createClass({
 
   handleComplete(e: Object) {
     e.preventDefault();
+    HabitViewActionCreators.completeHabit(this.props.habit);
   },
 
   handleGoTo(e: Object) {

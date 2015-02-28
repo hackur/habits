@@ -47,6 +47,12 @@ function isToday(momentDate: Object): boolean {
   return moment().isSame(momentDate, 'day');
 }
 
+function isSameDayDef(momentToCompare: Object, momentDate: Object): boolean {
+  return momentToCompare.isSame(momentDate, 'day');
+}
+
+var isSameDay = curry(isSameDayDef);
+
 function getDayParams(momentDate: Object): Object {
   return {
     year: formatMoment('YYYY')(momentDate),
@@ -80,6 +86,7 @@ module.exports = {
   getStartOf,
   isInFuture,
   isToday,
+  isSameDay,
   getDayParams,
   getPreviousDay,
   getNextDay,
