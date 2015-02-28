@@ -10,17 +10,17 @@ var FrontHandlerViewActionCreators = require('./FrontHandlerViewActionCreators')
 require('./FrontHandler.less');
 
 var FrontHandler = React.createClass({
-  handleClickFacebookRegister(e/*: Object*/) {
+  handleClickFacebookRegister(e: Object) {
     e.preventDefault();
     FrontHandlerViewActionCreators.authorizeWithFacebook();
   },
 
-  handleClickTwitterRegister(e/*: Object*/) {
+  handleClickTwitterRegister(e: Object) {
     e.preventDefault();
     FrontHandlerViewActionCreators.authorizeWithTwitter();
   },
 
-  render()/*: any*/ {
+  render(): any {
     return (
       <div className="front-handler">
         <p className="front-handler__intro">

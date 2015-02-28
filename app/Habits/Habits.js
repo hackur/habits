@@ -15,7 +15,7 @@ var Habits = React.createClass({
 
   mixins: [PureRenderMixin],
 
-  render()/*: any*/ {
+  render(): any {
     var habits = this.props.user.get('habits').map(habit => (
       <div key={habit.key}>
         {habit.name}

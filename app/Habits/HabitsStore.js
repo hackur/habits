@@ -16,7 +16,7 @@ var _habits = Immutable.Map({
   newHabit: ''
 });
 
-function changeNewHabit(action/*: {newHabit: string}*/) {
+function changeNewHabit(action: {newHabit: string}) {
   _habits = _habits.merge({newHabit: action.newHabit});
 }
 
