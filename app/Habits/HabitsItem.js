@@ -27,11 +27,15 @@ var HabitsItem = React.createClass({
   },
 
   render(): any {
+    var completeButton = this.props.habit.get('lastIsToday') ?
+      null :
+      <a href="#" onClick={this.handleComplete}>Complete</a>;
+
     return (
       <div>
         {this.props.habit.get('name')}
         <div>
-          <a href="#" onClick={this.handleComplete}>Complete</a>
+          {completeButton}
           <a href="#" onClick={this.handleGoTo}>More</a>
         </div>
       </div>
