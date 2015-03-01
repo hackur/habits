@@ -50,6 +50,8 @@ function convertRawHabit(rawHabit: RawHabit, user: Immutable.Map): Immutable.Map
     name: rawHabit.value.name,
     streak: displayStreak,
     last: rawHabit.value.last,
+    bestStreak: rawHabit.value.best ? rawHabit.value.best.streak : null,
+    bestStreakLast: rawHabit.value.best ? rawHabit.value.best.last : null,
     lastIsToday,
     habitsDataUrl,
     dataDataUrl
@@ -64,16 +66,37 @@ function getStreak(habit: Habit): number {
   return checkLastIsPreviousDay(habit.last) ? habit.streak + 1 : 1;
 }
 
+function hasNewBestStreak(streak: number, habit: Habit): boolean {
+  if (!habit.last || !habit.bestStreak) {
+    return true;
+  }
+
+  return streak >= habit.bestStreak;
+}
+
 /**
  * Data for when user completes a habit for the current day.
  */
 function getCompleteHabitData(habit: Habit): Object {
   var streak = getStreak(habit);
 
-  return {
+  var completeData: {
+    last: string;
+    streak: number;
+    best?: Object;
+  } = {
     last: getCurrentDayKey(),
     streak
   };
+
+  if (hasNewBestStreak(streak, habit)) {
+    completeData.best = {
+      streak,
+      last: getCurrentDayKey()
+    };
+  }
+
+  return completeData;
 }
 
 module.exports = {

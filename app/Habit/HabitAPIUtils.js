@@ -12,7 +12,7 @@ function completeHabit(habit: Habit) {
   var data = HabitUtils.getCompleteHabitData(habit);
   var currentDayKey = dateUtils.getCurrentDayKey();
   firebaseUtils.update(habit.habitsDataUrl, data).then(() => firebaseUtils.set(
-    habit.dataDataUrl + '/days/' + currentDayKey, true
+    habit.dataDataUrl + '/days/' + currentDayKey, {ts: new Date().getTime()}
   ));
 }
 
