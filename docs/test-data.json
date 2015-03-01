@@ -1,0 +1,86 @@
+{
+  "data" : {
+    "-JjElC08d0VboRcPBre5" : {
+      "days" : {
+        "20150228" : {
+          "ts" : 1425183006160
+        },
+        "20150301" : {
+          "ts" : 1425183006160
+        }
+      },
+      "start" : "20150228"
+    },
+    "-JjFKQ7z_8tbwRDlLd0R" : {
+      "days" : {
+        "20150228" : {
+          "ts" : 1425183006160
+        },
+        "20150301" : {
+          "ts" : 1425183006160
+        }
+      },
+      "start" : "20150228"
+    },
+    "-JjFSB0upcPqBb9alpH9" : {
+      "days" : {
+        "20150228" : {
+          "ts" : 1425183006160
+        },
+        "20150301" : {
+          "ts" : 1425183006160
+        }
+      },
+      "start" : "20150228"
+    },
+    "-JjFfECukPArdR0x-C2J" : {
+      "days" : {
+        "20150301" : {
+          "ts" : 1425183006160
+        }
+      },
+      "start" : "20150228"
+    },
+    "-JjIWhOKPtmNcEhBpeeF" : {
+      "days" : {
+        "20150301" : {
+          "ts" : 1425183006160
+        }
+      },
+      "start" : "20150301"
+    }
+  },
+  "habits" : {
+    "-JjElC08d0VboRcPBre5" : {
+      "best" : {
+        "last" : "20150228",
+        "streak" : 5
+      },
+      "last" : "20150228",
+      "name" : "Test habit 1 - on best streak",
+      "streak" : 5
+    },
+    "-JjFKQ7z_8tbwRDlLd0R" : {
+      "best" : {
+        "last" : "20150101",
+        "streak" : 50
+      },
+      "last" : "20150228",
+      "name" : "Test habit 2 - on streak but not best",
+      "streak" : 2
+    },
+    "-JjFSB0upcPqBb9alpH9" : {
+      "best" : {
+        "last" : "20150227",
+        "streak" : 5
+      },
+      "last" : "20150227",
+      "name" : "Test habit 3 - missed yesterday",
+      "streak" : 5
+    }
+  },
+  "meta" : {
+    "active" : true,
+    "displayName" : "Franky Chung"
+  }
+}
