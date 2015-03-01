@@ -12,6 +12,8 @@ var assign = require('lodash/object/assign');
 var Store = require('../Store');
 var ActionTypes = require('../ActionTypes');
 
+var UserStore = require('../User/UserStore');
+
 var _habit = Immutable.Map({
   habit: Immutable.Map(),
   days: Immutable.OrderedMap()

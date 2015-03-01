@@ -16,6 +16,19 @@ function completeHabit(habit: Habit) {
   ));
 }
 
+/**
+ * Listen to value of one spot and children of another
+ */
+function listenToHabit(habit: Habit) {
+
+}
+
+function stopListeningToHabit(habit: Habit) {
+
+}
+
 module.exports = {
-  completeHabit
+  completeHabit,
+  listenToHabit,
+  stopListeningToHabit
 };
