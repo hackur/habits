@@ -7,6 +7,7 @@
 var React = require('react/addons');
 var { PureRenderMixin } = React.addons;
 var { PropTypes } = React;
+var { Link } = require('react-router');
 
 var HabitViewActionCreators = require('../Habit/HabitViewActionCreators');
 
@@ -20,10 +21,6 @@ var HabitsItem = React.createClass({
   handleComplete(e: Object) {
     e.preventDefault();
     HabitViewActionCreators.completeHabit(this.props.habit);
-  },
-
-  handleGoTo(e: Object) {
-    e.preventDefault();
   },
 
   render(): any {
@@ -45,7 +42,10 @@ var HabitsItem = React.createClass({
         </div>
         <div>
           {completeButton}
-          <a href="#" onClick={this.handleGoTo}>More</a>
+          <Link to="habit"
+            params={{habitId: this.props.habit.get('key')}}>
+            More
+          </Link>
         </div>
       </div>
     );
