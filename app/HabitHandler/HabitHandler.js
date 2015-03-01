@@ -10,6 +10,7 @@ var { PropTypes } = React;
 var StoresMixin = require('../StoresMixin');
 
 var Habit = require('../Habit/Habit');
+var HabitStore = require('../Habit/HabitStore');
 
 var HabitHandler = React.createClass({
   propTypes: {
@@ -18,14 +19,20 @@ var HabitHandler = React.createClass({
 
   mixins: [StoresMixin, PureRenderMixin],
 
-  stores: [],
+  stores: [HabitStore],
+
+  getStateFromStores(): Object {
+    return {
+      habit: HabitStore.get()
+    };
+  },
 
   render(): any {
     if (!this.props.user) { return null; }
 
     return (
       <div>
-        <Habit />
+        <Habit habit={this.state.habit} />
       </div>
     );
   }
