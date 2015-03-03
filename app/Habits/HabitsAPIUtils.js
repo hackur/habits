@@ -2,9 +2,9 @@
  * @flow
  */
 
-var HabitsUtils = require('./HabitsUtils');
-var firebaseUtils = require('../shared/firebaseUtils');
-var dateUtils = require('../shared/dateUtils');
+const HabitsUtils = require('./HabitsUtils');
+const firebaseUtils = require('../shared/firebaseUtils');
+const dateUtils = require('../shared/dateUtils');
 
 function createHabit(user: User, newHabit: string) {
   var key = firebaseUtils.push(

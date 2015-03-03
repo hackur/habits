@@ -2,10 +2,9 @@
  * @flow
  */
 
-var Dispatcher = require('../Dispatcher');
-var ActionTypes = require('../ActionTypes');
-
-var HabitsAPIUtils = require('./HabitsAPIUtils');
+const HabitsAPIUtils = require('./HabitsAPIUtils');
+const Dispatcher = require('../Dispatcher');
+const ActionTypes = require('../ActionTypes');
 
 function changeNewHabit(newHabit: string) {
   Dispatcher.handleAction({

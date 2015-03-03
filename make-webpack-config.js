@@ -47,8 +47,8 @@ module.exports = function(options) {
   }
 
   var jsLoader = options.build ?
-    { test: /\.js$/, exclude: /node_modules/, loader: 'jsx-loader?harmony&stripTypes' } :
-    { test: /\.js$/, exclude: /node_modules/, loaders: ['react-hot-loader', 'jsx-loader?harmony&stripTypes'] };
+    { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' } :
+    { test: /\.js$/, exclude: /node_modules/, loaders: ['react-hot-loader', 'babel-loader'] };
 
   var cssLoader = options.build ?
     { test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader") } :
