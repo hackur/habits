@@ -1,3 +1,8 @@
+/**
+ * Purely for piping babel output with types to another folder so flow can
+ * check it.
+ */
+
 module.exports = function(grunt) {
   grunt.initConfig({
     clean: ['typecheck'],
@@ -43,6 +48,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-babel');
 
-  grunt.registerTask('startFlow', ['clean', 'babel:flow', 'shell:startFlow', 'shell:flow']);
-  grunt.registerTask('flow', ['watch:flow']);
+  grunt.registerTask('default', [
+    'clean',
+    'babel:flow',
+    'shell:startFlow',
+    'shell:flow',
+    'watch:flow'
+  ]);
 }

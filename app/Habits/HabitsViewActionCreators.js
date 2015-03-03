@@ -7,14 +7,14 @@ var ActionTypes = require('../ActionTypes');
 
 var HabitsAPIUtils = require('./HabitsAPIUtils');
 
-function changeNewHabit(newHabit/*: string*/) {
+function changeNewHabit(newHabit: string) {
   Dispatcher.handleAction({
     type: ActionTypes.CHANGE_NEW_HABIT,
     newHabit
   });
 }
 
-function submitNewHabit(user/*: Object*/, newHabit/*: string*/) {
+function submitNewHabit(user: Object, newHabit: string) {
   HabitsAPIUtils.createHabit(user.toJS(), newHabit);
 
   Dispatcher.handleAction({
