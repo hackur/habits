@@ -2,11 +2,11 @@
  * @flow
  */
 
-var React = require('react/addons');
-var { PureRenderMixin } = React.addons;
-var { PropTypes } = React;
+const React = require('react/addons');
+const { PureRenderMixin } = React.addons;
+const { PropTypes } = React;
 
-var Habit = React.createClass({
+const Habit = React.createClass({
   propTypes: {
     habit: PropTypes.object.isRequired
   },

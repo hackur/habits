@@ -2,23 +2,24 @@
  * @flow
  */
 
-var Immutable = require('immutable');
-var compose = require('lodash/function/compose');
-var {
+const Immutable = require('immutable');
+const compose = require('lodash/function/compose');
+const {
   getCurrentDayKey,
   parseDayKey,
   getCurrentMoment,
   isSameDay
 } = require('../shared/dateUtils');
 
-function checkLastIsPreviousDay(last: ?string): boolean {
+/*:: type CheckLastIsPreviousDay = (last: ?string) => boolean */
+const checkLastIsPreviousDay: CheckLastIsPreviousDay = last => {
   if (!last) {
     return false;
   }
 
   var dayAfterLastDay = parseDayKey(last).add(1, 'd');
   return compose(isSameDay(dayAfterLastDay), getCurrentMoment)();
-}
+};
 
 function checkLastIsToday(last: ?string): boolean {
   if (!last) {
@@ -36,12 +37,13 @@ function isOnStreak(last: ?string): boolean {
   return checkLastIsPreviousDay(last) || checkLastIsToday(last);
 }
 
-function convertRawHabit(rawHabit: RawHabit, user: Immutable.Map): Immutable.Map {
-  var habitsDataUrl = user.get('dataUrl') + '/habits/' + rawHabit.key;
-  var dataDataUrl = user.get('dataUrl') + '/data/' + rawHabit.key;
+/*:: type ConvertRawHabit = (rawHabit: RawHabit, user: Immutable.Map) => Immutable.Map; */
+const convertRawHabit: ConvertRawHabit = (rawHabit, user) => {
+  const habitsDataUrl = user.get('dataUrl') + '/habits/' + rawHabit.key;
+  const dataDataUrl = user.get('dataUrl') + '/data/' + rawHabit.key;
 
-  var displayStreak = rawHabit.value.last && isOnStreak(rawHabit.value.last) ? rawHabit.value.streak : 0;
-  var lastIsToday = checkLastIsToday(rawHabit.value.last);
+  const displayStreak = rawHabit.value.last && isOnStreak(rawHabit.value.last) ? rawHabit.value.streak : 0;
+  const lastIsToday = checkLastIsToday(rawHabit.value.last);
 
   return Immutable.Map({
     key: rawHabit.key,
@@ -54,7 +56,7 @@ function convertRawHabit(rawHabit: RawHabit, user: Immutable.Map): Immutable.Map
     habitsDataUrl,
     dataDataUrl
   });
-}
+};
 
 function getStreak(habit: Habit): number {
   if (!habit.last) {

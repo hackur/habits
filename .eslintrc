@@ -7,6 +7,9 @@
     // in CommonJS
     "node": true
   },
+  "globals": {
+    "__DEV__": false
+  },
   // To give you an idea how to override rule options:
   "rules": {
     "quotes": [2, "single"],

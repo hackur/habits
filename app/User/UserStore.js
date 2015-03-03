@@ -18,23 +18,21 @@ let _user = Immutable.Map({
   habits: Immutable.OrderedMap()
 });
 
-function receiveAuth(action) {
+const receiveAuth = action => {
   const user = UserUtils.getUserFromRawAuth(action.auth);
   _user = _user.merge({auth: action.auth, user: user});
-}
+};
 
-function receiveLoggedOut() {
+const receiveLoggedOut = () =>
   _user = _user.merge({auth: null, user: null});
-}
 
-function receiveUserMeta(action) {
+const receiveUserMeta = action =>
   _user = _user.update('user', user => user.merge({meta: action.meta}));
-}
 
-function receiveAddedHabit(action: {rawHabit: RawHabit}) {
+const receiveAddedHabit = (action: {rawHabit: RawHabit}) => {
   const converted = HabitUtils.convertRawHabit(action.rawHabit, _user.get('user'));
   _user = _user.setIn(['habits', action.rawHabit.key], converted);
-}
+};
 
 const actions = {
   [ActionTypes.RECEIVE_AUTH]: receiveAuth,

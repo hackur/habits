@@ -2,21 +2,21 @@
  * @flow
  */
 
-var React = require('react/addons');
-var { RouteHandler, Navigation, State } = require('react-router');
-var isEmpty = require('lodash/lang/isEmpty');
-var reduce = require('lodash/collection/reduce');
+const React = require('react/addons');
+const { RouteHandler, Navigation, State } = require('react-router');
+const isEmpty = require('lodash/lang/isEmpty');
+const reduce = require('lodash/collection/reduce');
 
-var AppHandlerViewActionCreators = require('./AppHandlerViewActionCreators');
-var UserStore = require('../User/UserStore');
-var StoresMixin = require('../StoresMixin');
-var Inside = require('../Inside/Inside');
-var Outside = require('../Outside/Outside');
+const AppHandlerViewActionCreators = require('./AppHandlerViewActionCreators');
+const UserStore = require('../User/UserStore');
+const StoresMixin = require('../StoresMixin');
+const Inside = require('../Inside/Inside');
+const Outside = require('../Outside/Outside');
 
 require('normalize-css/normalize.css');
 require('./AppHandler.less');
 
-var AppHandler = React.createClass({
+const AppHandler = React.createClass({
   statics: {
     willTransitionTo(transition, params, query, callback) {
       UserStore.initialize();
@@ -40,14 +40,14 @@ var AppHandler = React.createClass({
   },
 
   componentDidMount() {
-    var params = this.getParams();
-    var pathname = this.getPathname();
-    var insidePaths = [
+    const params = this.getParams();
+    const pathname = this.getPathname();
+    const insidePaths = [
       'habits',
       'new'
     ];
 
-    var isInside = reduce(
+    const isInside = reduce(
       insidePaths,
       (inside, path) => inside || pathname.indexOf(path) > -1,
       false
@@ -69,10 +69,10 @@ var AppHandler = React.createClass({
   },
 
   render(): any {
-    var insideHandler = this.state.user.get('user') ?
+    const insideHandler = this.state.user.get('user') ?
       <RouteHandler user={this.state.user} key="inside" /> : null;
 
-    var content = this.state.user.get('auth') ?
+    const content = this.state.user.get('auth') ?
       <Inside user={this.state.user}>
         {insideHandler}
       </Inside> :

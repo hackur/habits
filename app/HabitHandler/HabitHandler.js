@@ -2,15 +2,15 @@
  * @flow
  */
 
-var React = require('react/addons');
-var { PureRenderMixin } = React.addons;
-var { PropTypes } = React;
-var StoresMixin = require('../StoresMixin');
+const React = require('react/addons');
+const { PureRenderMixin } = React.addons;
+const { PropTypes } = React;
+const StoresMixin = require('../StoresMixin');
 
-var Habit = require('../Habit/Habit');
-var HabitStore = require('../Habit/HabitStore');
+const Habit = require('../Habit/Habit');
+const HabitStore = require('../Habit/HabitStore');
 
-var HabitHandler = React.createClass({
+const HabitHandler = React.createClass({
   propTypes: {
     user: PropTypes.object
   },

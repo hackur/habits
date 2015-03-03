@@ -2,14 +2,14 @@
  * @flow
  */
 
-var React = require('react/addons');
-var { PureRenderMixin } = React.addons;
-var { PropTypes } = React;
-var { Link } = require('react-router');
+const React = require('react/addons');
+const { PureRenderMixin } = React.addons;
+const { PropTypes } = React;
+const { Link } = require('react-router');
 
-var HabitViewActionCreators = require('../Habit/HabitViewActionCreators');
+const HabitViewActionCreators = require('../Habit/HabitViewActionCreators');
 
-var HabitsItem = React.createClass({
+const HabitsItem = React.createClass({
   propTypes: {
     habit: PropTypes.object.isRequired
   },
@@ -22,11 +22,11 @@ var HabitsItem = React.createClass({
   },
 
   render(): any {
-    var completeButton = this.props.habit.get('lastIsToday') ?
+    const completeButton = this.props.habit.get('lastIsToday') ?
       null :
       <a href="#" onClick={this.handleComplete}>Complete</a>;
 
-    var check = this.props.habit.get('lastIsToday') ?
+    const check = this.props.habit.get('lastIsToday') ?
       <div>Done</div> : null;
 
     return (

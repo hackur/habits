@@ -2,13 +2,13 @@
  * @flow
  */
 
-var React = require('react/addons');
-var { PureRenderMixin } = React.addons;
-var { PropTypes } = React;
+const React = require('react/addons');
+const HabitsItem = require('./HabitsItem');
 
-var HabitsItem = require('./HabitsItem');
+const { PureRenderMixin } = React.addons;
+const { PropTypes } = React;
 
-var Habits = React.createClass({
+const Habits = React.createClass({
   propTypes: {
     user: PropTypes.object.isRequired
   },
@@ -16,8 +16,9 @@ var Habits = React.createClass({
   mixins: [PureRenderMixin],
 
   render(): any {
-    var habits = this.props.user.get('habits').map(habit => (
-      <HabitsItem key={habit.get('key')}
+    const habits = this.props.user.get('habits').map(habit => (
+      <HabitsItem
+        key={habit.get('key')}
         habit={habit}
       />
     )).toArray();

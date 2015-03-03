@@ -2,12 +2,12 @@
  * @flow
  */
 
-var React = require('react/addons');
-var FrontHandlerViewActionCreators = require('./FrontHandlerViewActionCreators');
+const React = require('react/addons');
+const FrontHandlerViewActionCreators = require('./FrontHandlerViewActionCreators');
 
 require('./FrontHandler.less');
 
-var FrontHandler = React.createClass({
+const FrontHandler = React.createClass({
   handleClickFacebookRegister(e: Object) {
     e.preventDefault();
     FrontHandlerViewActionCreators.authorizeWithFacebook();
