@@ -62,7 +62,7 @@ const hasNewBestStreak: HasNewBestStreak = (streak, habit) =>
  * Data for when user completes a habit for the current day.
  */
 /*:: type GetCompleteHabitData = (habit: Habit) => Object */
-const getCompleteHabitData: GetCompleteHabitData = (habit) => {
+const getCompleteHabitData: GetCompleteHabitData = habit => {
   const streak = getStreak(habit);
 
   const completeData: {
