@@ -2,8 +2,6 @@
  * @flow
  */
 
-'use strict';
-
 var React = require('react/addons');
 var { PropTypes } = React;
 var { PureRenderMixin } = React.addons;

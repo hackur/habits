@@ -2,8 +2,6 @@
  * @flow
  */
 
-'use strict';
-
 var HabitAPIUtils = require('./HabitAPIUtils');
 
 function completeHabit(habit: Object) {

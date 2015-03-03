@@ -2,8 +2,6 @@
  * @flow
  */
 
-'use strict';
-
 /**
  * Facebook and Twitter give us display name
  */

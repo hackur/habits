@@ -2,8 +2,6 @@
  * @flow
  */
 
-'use strict';
-
 var HabitUtils = require('./HabitUtils');
 var firebaseUtils = require('../shared/firebaseUtils');
 var dateUtils = require('../shared/dateUtils');

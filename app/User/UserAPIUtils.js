@@ -2,8 +2,6 @@
  * @flow
  */
 
-'use strict';
-
 var firebaseUtils = require('../shared/firebaseUtils');
 var UserServerActionCreators = require('./UserServerActionCreators');
 var UserUtils = require('./UserUtils');

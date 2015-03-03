@@ -4,8 +4,6 @@
  * @flow
  */
 
-'use strict';
-
 var firebaseUtils = require('../shared/firebaseUtils');
 var { receiveAuth, receiveLoggedOut } = require('../User/UserServerActionCreators');
 

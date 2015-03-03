@@ -2,8 +2,6 @@
  * @flow
  */
 
-'use strict';
-
 var moment = require('moment');
 var curry = require('lodash/function/curry');
 var compose = require('lodash/function/compose');

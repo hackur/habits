@@ -2,8 +2,6 @@
  * @flow
  */
 
-'use strict';
-
 var { Dispatcher } = require('flux');
 var assign = require('lodash/object/assign');
 

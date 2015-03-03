@@ -2,8 +2,6 @@
  * @flow
  */
 
-'use strict';
-
 function getNewHabitData(newHabit: string): Object {
   return {
     name: newHabit,

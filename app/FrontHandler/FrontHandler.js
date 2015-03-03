@@ -2,8 +2,6 @@
  * @flow
  */
 
-'use strict';
-
 var React = require('react/addons');
 var FrontHandlerViewActionCreators = require('./FrontHandlerViewActionCreators');
 

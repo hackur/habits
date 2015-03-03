@@ -2,8 +2,6 @@
  * @flow
  */
 
-'use strict';
-
 var React = require('react/addons');
 var { RouteHandler, Navigation, State } = require('react-router');
 var isEmpty = require('lodash/lang/isEmpty');

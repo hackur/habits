@@ -2,8 +2,6 @@
  * @flow
  */
 
-'use strict';
-
 var UserAPIUtils = require('./UserAPIUtils');
 
 function listenToUserMeta(user: Object, auth: Object) {

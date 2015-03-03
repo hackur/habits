@@ -2,8 +2,6 @@
  * @flow
  */
 
-'use strict';
-
 var assign = require('lodash/object/assign');
 var uniqueId = require('lodash/utility/uniqueId');
 var Dispatcher = require('./Dispatcher');

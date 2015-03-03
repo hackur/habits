@@ -2,8 +2,6 @@
  * @flow
  */
 
-'use strict';
-
 var ActionTypes = require('../ActionTypes');
 var Dispatcher = require('../Dispatcher');
 var curry = require('lodash/function/curry');

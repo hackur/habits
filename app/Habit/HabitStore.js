@@ -4,8 +4,6 @@
  * @flow
  */
 
-'use strict';
-
 var Immutable = require('immutable');
 var assign = require('lodash/object/assign');
 

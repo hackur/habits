@@ -4,8 +4,6 @@
  * @flow
  */
 
-'use strict';
-
 var Firebase = require('firebase');
 var firebaseUrl = __FIREBASE__;
 var RSVP = require('rsvp');

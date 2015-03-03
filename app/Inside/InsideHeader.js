@@ -2,8 +2,6 @@
  * @flow
  */
 
-'use strict';
-
 var React = require('react/addons');
 var { PureRenderMixin } = React.addons;
 var { Link } = require('react-router');
