@@ -1,9 +1,5 @@
 [ignore]
-*
+.*/app/.*
 
 [libs]
-lib/
-
-[include]
-app/
-
+./lib
