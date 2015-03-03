@@ -21,21 +21,13 @@ const checkLastIsPreviousDay: CheckLastIsPreviousDay = last => {
   return compose(isSameDay(dayAfterLastDay), getCurrentMoment)();
 };
 
-function checkLastIsToday(last: ?string): boolean {
-  if (!last) {
-    return false;
-  }
+/*:: type CheckLastIsToday = (last: ?string) => boolean */
+const checkLastIsToday: CheckLastIsToday = last =>
+  last ? compose(isSameDay(parseDayKey(last)), getCurrentMoment)() : false;
 
-  return compose(isSameDay(parseDayKey(last)), getCurrentMoment)();
-}
-
-function isOnStreak(last: ?string): boolean {
-  if (!last) {
-    return false;
-  }
-
-  return checkLastIsPreviousDay(last) || checkLastIsToday(last);
-}
+/*:: type IsOnStreak = (last: ?string) => boolean */
+const isOnStreak: IsOnStreak = last =>
+  last ? checkLastIsPreviousDay(last) || checkLastIsToday(last) : false;
 
 /*:: type ConvertRawHabit = (rawHabit: RawHabit, user: Immutable.Map) => Immutable.Map; */
 const convertRawHabit: ConvertRawHabit = (rawHabit, user) => {
@@ -58,29 +50,22 @@ const convertRawHabit: ConvertRawHabit = (rawHabit, user) => {
   });
 };
 
-function getStreak(habit: Habit): number {
-  if (!habit.last) {
-    return 1;
-  }
+/*:: type GetStreak = (habit: Habit) => number */
+const getStreak: GetStreak = habit =>
+  habit.last && checkLastIsPreviousDay(habit.last) ? habit.streak + 1 : 1;
 
-  return checkLastIsPreviousDay(habit.last) ? habit.streak + 1 : 1;
-}
-
-function hasNewBestStreak(streak: number, habit: Habit): boolean {
-  if (!habit.last || !habit.bestStreak) {
-    return true;
-  }
-
-  return streak >= habit.bestStreak;
-}
+/*:: type HasNewBestStreak = (streak: number, habit: Habit) => boolean */
+const hasNewBestStreak: HasNewBestStreak = (streak, habit) =>
+  !habit.last || !habit.bestStreak || streak >= habit.bestStreak;
 
 /**
  * Data for when user completes a habit for the current day.
  */
-function getCompleteHabitData(habit: Habit): Object {
-  var streak = getStreak(habit);
+/*:: type GetCompleteHabitData = (habit: Habit) => Object */
+const getCompleteHabitData: GetCompleteHabitData = (habit) => {
+  const streak = getStreak(habit);
 
-  var completeData: {
+  const completeData: {
     last: string;
     streak: number;
     best?: Object;
@@ -97,7 +82,7 @@ function getCompleteHabitData(habit: Habit): Object {
   }
 
   return completeData;
-}
+};
 
 module.exports = {
   convertRawHabit,
