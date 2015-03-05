@@ -37,12 +37,12 @@ module.exports = function(options) {
       new webpack.optimize.UglifyJsPlugin(),
       new webpack.optimize.DedupePlugin(),
       new webpack.DefinePlugin({
-        "process.env": {
-          NODE_ENV: JSON.stringify("production")
+        'process.env': {
+          NODE_ENV: JSON.stringify('production')
         }
       }),
       new webpack.NoErrorsPlugin(),
-      new ExtractTextPlugin("[name].[chunkhash].css")
+      new ExtractTextPlugin('[name].[chunkhash].css')
     );
   }
 
@@ -51,12 +51,12 @@ module.exports = function(options) {
     { test: /\.js$/, exclude: /node_modules/, loaders: ['react-hot-loader', 'babel-loader'] };
 
   var cssLoader = options.build ?
-    { test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader") } :
-    { test: /\.css$/, loader: "style-loader!css-loader" };
+    { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') } :
+    { test: /\.css$/, loader: 'style-loader!css-loader' };
 
   var lessLoader = options.build ?
-    { test: /\.less$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader") } :
-    { test: /\.less$/, loader: "style-loader!css-loader!less-loader" };
+    { test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader') } :
+    { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' };
 
   return {
     entry: {
@@ -65,7 +65,7 @@ module.exports = function(options) {
     output: {
       path: path.join(__dirname, 'build', 'public'),
       publicPath: publicPath,
-      filename: '[name]' + (options.build ? '.[chunkhash]' : '') + '.js',
+      filename: '[name]' + (options.build ? '.[chunkhash]' : '') + '.js'
     },
     module: {
       loaders: [
