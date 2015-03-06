@@ -27,7 +27,7 @@ module.exports = function(grunt) {
     babel: {
       flow: {
         options: {
-          blacklist: ['flow']
+          blacklist: ['flow', 'es6.classes']
         },
 
         files: [
@@ -55,4 +55,4 @@ module.exports = function(grunt) {
     'shell:flow',
     'watch:flow'
   ]);
-}
+};

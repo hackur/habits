@@ -5,7 +5,6 @@
  */
 
 const Immutable = require('immutable');
-const assign = require('lodash/object/assign');
 
 const UserUtils = require('./UserUtils');
 const HabitUtils = require('../Habit/HabitUtils');
@@ -42,11 +41,13 @@ const actions = {
   [ActionTypes.RECEIVE_CHANGED_HABIT]: receiveAddedHabit
 };
 
-module.exports = assign(new Store(actions), {
+class UserStore extends Store {
   initialize() {
-  },
+  }
 
   get() {
     return _user;
   }
-});
+}
+
+module.exports = new UserStore(actions);

@@ -5,11 +5,8 @@
  */
 
 const Immutable = require('immutable');
-const assign = require('lodash/object/assign');
-
 const Store = require('../Store');
 const ActionTypes = require('../ActionTypes');
-
 const UserStore = require('../User/UserStore');
 
 let _habit = Immutable.Map({
@@ -19,12 +16,13 @@ let _habit = Immutable.Map({
 
 const actions = {};
 
-module.exports = assign(new Store(actions), {
+class HabitStore extends Store {
   initialize() {
-  },
+  }
 
   get() {
     return _habit;
   }
-});
+}
 
+module.exports = new HabitStore(actions);
