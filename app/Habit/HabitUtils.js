@@ -11,8 +11,7 @@ const {
   isSameDay
 } = require('../shared/dateUtils');
 
-/*:: type CheckLastIsPreviousDay = (last: ?string) => boolean */
-const checkLastIsPreviousDay: CheckLastIsPreviousDay = last => {
+const checkLastIsPreviousDay: (last: ?string) => boolean = last => {
   if (!last) {
     return false;
   }
@@ -21,16 +20,13 @@ const checkLastIsPreviousDay: CheckLastIsPreviousDay = last => {
   return compose(isSameDay(dayAfterLastDay), getCurrentMoment)();
 };
 
-/*:: type CheckLastIsToday = (last: ?string) => boolean */
-const checkLastIsToday: CheckLastIsToday = last =>
+const checkLastIsToday: (last: ?string) => boolean = last =>
   last ? compose(isSameDay(parseDayKey(last)), getCurrentMoment)() : false;
 
-/*:: type IsOnStreak = (last: ?string) => boolean */
-const isOnStreak: IsOnStreak = last =>
+const isOnStreak: (x: ?string) => boolean = last =>
   last ? checkLastIsPreviousDay(last) || checkLastIsToday(last) : false;
 
-/*:: type ConvertRawHabit = (rawHabit: RawHabit, user: Immutable.Map) => Immutable.Map; */
-const convertRawHabit: ConvertRawHabit = (rawHabit, user) => {
+const convertRawHabit: (x: RawHabit, y: Immutable.Map) => Immutable.Map = (rawHabit, user) => {
   const habitsDataUrl = user.get('dataUrl') + '/habits/' + rawHabit.key;
   const dataDataUrl = user.get('dataUrl') + '/data/' + rawHabit.key;
 
@@ -50,38 +46,27 @@ const convertRawHabit: ConvertRawHabit = (rawHabit, user) => {
   });
 };
 
-/*:: type GetStreak = (habit: Habit) => number */
-const getStreak: GetStreak = habit =>
+const getStreak: (x: Habit) => number = habit =>
   habit.last && checkLastIsPreviousDay(habit.last) ? habit.streak + 1 : 1;
 
-/*:: type HasNewBestStreak = (streak: number, habit: Habit) => boolean */
-const hasNewBestStreak: HasNewBestStreak = (streak, habit) =>
+const hasNewBestStreak: (x: number, y: Habit) => boolean = (streak, habit) =>
   !habit.last || !habit.bestStreak || streak >= habit.bestStreak;
 
 /**
  * Data for when user completes a habit for the current day.
  */
-/*:: type GetCompleteHabitData = (habit: Habit) => Object */
-const getCompleteHabitData: GetCompleteHabitData = habit => {
+const getCompleteHabitData: (x: Habit) => Object = habit => {
   const streak = getStreak(habit);
+  const best = hasNewBestStreak(streak, habit) ? {
+    streak,
+    last: getCurrentDayKey()
+  } : null;
 
-  const completeData: {
-    last: string;
-    streak: number;
-    best?: Object;
-  } = {
+  return {
     last: getCurrentDayKey(),
-    streak
+    streak,
+    best
   };
-
-  if (hasNewBestStreak(streak, habit)) {
-    completeData.best = {
-      streak,
-      last: getCurrentDayKey()
-    };
-  }
-
-  return completeData;
 };
 
 module.exports = {
