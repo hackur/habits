@@ -47,12 +47,6 @@ const AppHandler = React.createClass({
     State
   ],
 
-  getStateFromStores(): Object {
-    return {
-      user: UserStore.get()
-    };
-  },
-
   componentDidMount() {
     const params = this.getParams();
     const pathname = this.getPathname();
