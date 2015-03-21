@@ -3,7 +3,6 @@
  */
 
 const React = require('react/addons');
-const { Navigation } = require('react-router');
 
 require('./Outside.less');
 
@@ -17,8 +16,6 @@ const Outside = React.createClass({
     user: PropTypes.object.isRequired,
     children: PropTypes.any.isRequired
   },
-
-  mixins: [Navigation],
 
   render(): any {
     return (

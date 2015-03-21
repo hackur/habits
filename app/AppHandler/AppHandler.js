@@ -4,7 +4,7 @@
 
 const React = require('react/addons');
 const Immutable = require('immutable');
-const { RouteHandler, Navigation, State } = require('react-router');
+const { RouteHandler } = require('react-router');
 const isEmpty = require('lodash/lang/isEmpty');
 const reduce = require('lodash/collection/reduce');
 const compose = require('lodash/function/compose');
@@ -42,14 +42,13 @@ const AppHandler = React.createClass({
     })
   },
 
-  mixins: [
-    Navigation,
-    State
-  ],
+  contextTypes: {
+    router: PropTypes.func.isRequired
+  },
 
   componentDidMount() {
-    const params = this.getParams();
-    const pathname = this.getPathname();
+    const params = this.context.router.getCurrentParams();
+    const pathname = this.context.router.getCurrentPathname();
     const insidePaths = [
       'habits',
       'new'
@@ -62,17 +61,17 @@ const AppHandler = React.createClass({
     );
 
     if (!isInside && isEmpty(params) && this.props.data.user.get('auth')) {
-      this.replaceWith('habits');
+      this.context.router.replaceWith('habits');
     } else if ((isInside || !isEmpty(params)) && !this.props.data.user.get('auth')) {
-      this.replaceWith('front');
+      this.context.router.replaceWith('front');
     }
   },
 
   componentDidUpdate(prevProps: any) {
     if (!prevProps.data.user.get('auth') && this.props.data.user.get('auth')) {
-      this.replaceWith('habits');
+      this.context.router.replaceWith('habits');
     } else if (prevProps.data.user.get('auth') && !this.props.data.user.get('auth')) {
-      this.replaceWith('front');
+      this.context.router.replaceWith('front');
     }
   },
 

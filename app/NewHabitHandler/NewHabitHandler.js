@@ -4,7 +4,6 @@
 
 const React = require('react/addons');
 const Immutable = require('immutable');
-const { Navigation } = require('react-router');
 const compose = require('lodash/function/compose');
 
 const ConnectToStores = require('../ConnectToStores');
@@ -28,7 +27,9 @@ const NewHabitHandler = React.createClass({
     }).isRequired
   },
 
-  mixins: [Navigation],
+  contextTypes: {
+    router: PropTypes.func.isRequired
+  },
 
   handleChangeNewHabit(e: Object) {
     HabitsViewActionCreators.changeNewHabit(e.target.value);
@@ -41,7 +42,7 @@ const NewHabitHandler = React.createClass({
         this.props.data.habits.get('newHabit')
       );
 
-      this.transitionTo('habits');
+      this.context.router.transitionTo('habits');
     }
   },
 
