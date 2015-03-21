@@ -7,7 +7,7 @@ const firebaseUtils = require('../shared/firebaseUtils');
 const dateUtils = require('../shared/dateUtils');
 
 const createHabit = (user: User, newHabit: string) => {
-  var key = firebaseUtils.push(
+  const key = firebaseUtils.push(
     user.dataUrl + '/habits',
     HabitsUtils.getNewHabitData(newHabit)
   );

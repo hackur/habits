@@ -7,8 +7,8 @@ const firebaseUtils = require('../shared/firebaseUtils');
 const dateUtils = require('../shared/dateUtils');
 
 const completeHabit = (habit: Habit) => {
-  var data = HabitUtils.getCompleteHabitData(habit);
-  var currentDayKey = dateUtils.getCurrentDayKey();
+  const data = HabitUtils.getCompleteHabitData(habit);
+  const currentDayKey = dateUtils.getCurrentDayKey();
   firebaseUtils.update(habit.habitsDataUrl, data).then(() => firebaseUtils.set(
     habit.dataDataUrl + '/days/' + currentDayKey, {ts: new Date().getTime()}
   ));

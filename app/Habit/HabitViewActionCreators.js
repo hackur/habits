@@ -2,22 +2,22 @@
  * @flow
  */
 
-var HabitAPIUtils = require('./HabitAPIUtils');
+const HabitAPIUtils = require('./HabitAPIUtils');
 
-function completeHabit(habit: Object) {
+const completeHabit = (habit: Object) => {
   HabitAPIUtils.completeHabit(habit.toJS());
-}
+};
 
 /**
  * Listen to value of specific habit
  */
-function loadHabit(habit: Object) {
+const loadHabit = (habit: Object) => {
   HabitAPIUtils.listenToHabit(habit.toJS());
-}
+};
 
-function unloadHabit(habit: Object) {
+const unloadHabit = (habit: Object) => {
   HabitAPIUtils.stopListeningToHabit(habit.toJS());
-}
+};
 
 module.exports = {
   completeHabit,

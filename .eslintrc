@@ -8,7 +8,8 @@
     "node": true
   },
   "globals": {
-    "__DEV__": false
+    "__DEV__": false,
+    "__FIREBASE__": false
   },
   // To give you an idea how to override rule options:
   "rules": {

@@ -2,7 +2,7 @@
  * @flow
  */
 
-var keyMirror = require('keymirror');
+const keyMirror = require('keymirror');
 
 module.exports = keyMirror({
   RECEIVE_AUTH: null,

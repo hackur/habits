@@ -2,9 +2,9 @@
  * @flow
  */
 
-var ActionTypes = require('../ActionTypes');
-var Dispatcher = require('../Dispatcher');
-var curry = require('lodash/function/curry');
+const ActionTypes = require('../ActionTypes');
+const Dispatcher = require('../Dispatcher');
+const curry = require('lodash/function/curry');
 
 function receiveUserMeta(meta: UserMeta) {
   Dispatcher.handleAction({
@@ -33,7 +33,7 @@ function receiveHabitDef(type: string, rawHabit: RawHabit) {
   });
 }
 
-var receiveHabit = curry(receiveHabitDef);
+const receiveHabit = curry(receiveHabitDef);
 
 module.exports = {
   receiveUserMeta,

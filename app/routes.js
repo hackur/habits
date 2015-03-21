@@ -2,18 +2,18 @@
  * @flow
  */
 
-var React = require('react/addons');
-var { Route, DefaultRoute } = require('react-router');
+const React = require('react/addons');
+const { Route, DefaultRoute } = require('react-router');
 
-var AppHandler = require('./AppHandler/AppHandler');
+const AppHandler = require('./AppHandler/AppHandler');
 
-var FrontHandler = require('./FrontHandler/FrontHandler');
+const FrontHandler = require('./FrontHandler/FrontHandler');
 
-var HabitsHandler = require('./HabitsHandler/HabitsHandler');
-var NewHabitHandler = require('./NewHabitHandler/NewHabitHandler');
-var HabitHandler = require('./HabitHandler/HabitHandler');
+const HabitsHandler = require('./HabitsHandler/HabitsHandler');
+const NewHabitHandler = require('./NewHabitHandler/NewHabitHandler');
+const HabitHandler = require('./HabitHandler/HabitHandler');
 
-var routes = (
+const routes = (
   <Route path="/" handler={AppHandler}>
     <DefaultRoute name="front" handler={FrontHandler} />
     <Route name="habit" path="/habits/:habitId" handler={HabitHandler} />

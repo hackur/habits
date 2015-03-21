@@ -2,11 +2,11 @@
  * @flow
  */
 
-var firebaseUtils = require('../shared/firebaseUtils');
+const firebaseUtils = require('../shared/firebaseUtils');
 
-function logOut() {
+const logOut = () => {
   firebaseUtils.unauth();
-}
+};
 
 module.exports = {
   logOut

@@ -2,15 +2,12 @@
  * @flow
  */
 
-var { Dispatcher } = require('flux');
-var assign = require('lodash/object/assign');
+const { Dispatcher } = require('flux');
 
-module.exports = assign(new Dispatcher(), {
-  handleAction: function(action) {
-    var payload = {
-      action: action
-    };
-    this.dispatch(payload);
+class AppDispatcher extends Dispatcher {
+  handleAction(action) {
+    this.dispatch({action});
   }
-});
+}
 
+module.exports = new AppDispatcher();

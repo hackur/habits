@@ -2,9 +2,9 @@
  * @flow
  */
 
-var firebaseUtils = require('../shared/firebaseUtils');
-var UserServerActionCreators = require('./UserServerActionCreators');
-var UserUtils = require('./UserUtils');
+const firebaseUtils = require('../shared/firebaseUtils');
+const UserServerActionCreators = require('./UserServerActionCreators');
+const UserUtils = require('./UserUtils');
 
 function listenToUserMeta(user: User, auth: Auth) {
   return firebaseUtils.listenToValue(user.dataUrl + '/meta', function(metaSnapshot?) {
@@ -12,7 +12,7 @@ function listenToUserMeta(user: User, auth: Auth) {
       UserServerActionCreators.receiveUserMeta(metaSnapshot.value);
     } else {
       // Create new user
-      var data = UserUtils.getNewUserData(user, auth);
+      const data = UserUtils.getNewUserData(user, auth);
       return firebaseUtils.set(user.dataUrl, data);
     }
   });
@@ -23,7 +23,7 @@ function stopListeningToUserMeta(user: User) {
 }
 
 function listenToHabits(user: User) {
-  var habitsUrl = user.dataUrl + '/habits';
+  const habitsUrl = user.dataUrl + '/habits';
   firebaseUtils.listenToChildAdded(habitsUrl, UserServerActionCreators.receiveAddedHabit);
   firebaseUtils.listenToChildRemoved(habitsUrl, UserServerActionCreators.receiveRemovedHabit);
   firebaseUtils.listenToChildChanged(habitsUrl, UserServerActionCreators.receiveChangedHabit);

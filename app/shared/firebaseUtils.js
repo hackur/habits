@@ -4,14 +4,14 @@
  * @flow
  */
 
-var Firebase = require('firebase');
-var firebaseUrl = __FIREBASE__;
-var RSVP = require('rsvp');
-var curry = require('lodash/function/curry');
+const Firebase = require('firebase');
+const firebaseUrl = __FIREBASE__;
+const RSVP = require('rsvp');
+const curry = require('lodash/function/curry');
 
 function createAuthWithPopup(type: string): Promise {
-  var ref = new Firebase(firebaseUrl);
-  var promise = new RSVP.Promise(function(resolve, reject) {
+  const ref = new Firebase(firebaseUrl);
+  const promise = new RSVP.Promise(function(resolve, reject) {
     ref.authWithOAuthPopup(type, function(error, authData) {
       if (error) {
         reject(error);
@@ -40,12 +40,12 @@ function authorizeWithTwitter(): Promise {
 }
 
 function unauth() {
-  var ref = new Firebase(firebaseUrl);
+  const ref = new Firebase(firebaseUrl);
   ref.unauth();
 }
 
 function listenToAuthStatus(loggedInCallback: Function, loggedOutCallback: Function) {
-  var ref = new Firebase(firebaseUrl);
+  const ref = new Firebase(firebaseUrl);
   ref.onAuth(function(authData) {
     if (authData) {
       loggedInCallback(authData);
@@ -57,27 +57,27 @@ function listenToAuthStatus(loggedInCallback: Function, loggedOutCallback: Funct
 
 // Receive data
 
-var listenToType = curry(function(type, path, callback) {
-  var ref = new Firebase(firebaseUrl + path);
+const listenToType = curry(function(type, path, callback) {
+  const ref = new Firebase(firebaseUrl + path);
 
   ref.on(type, function(snapshot) {
     callback({key: snapshot.key(), value: snapshot.val()});
   });
 });
 
-var stopListeningToType = curry(function(type, path) {
-  var ref = new Firebase(firebaseUrl + path);
+const stopListeningToType = curry(function(type, path) {
+  const ref = new Firebase(firebaseUrl + path);
   ref.off(type);
 });
 
-var listenToValue = listenToType('value');
-var stopListeningToValue = stopListeningToType('value');
-var listenToChildAdded = listenToType('child_added');
-var stopListeningToChildAdded = stopListeningToType('child_added');
-var listenToChildRemoved = listenToType('child_removed');
-var stopListeningToChildRemoved = stopListeningToType('child_removed');
-var listenToChildChanged = listenToType('child_changed');
-var stopListeningToChildChanged = stopListeningToType('child_changed');
+const listenToValue = listenToType('value');
+const stopListeningToValue = stopListeningToType('value');
+const listenToChildAdded = listenToType('child_added');
+const stopListeningToChildAdded = stopListeningToType('child_added');
+const listenToChildRemoved = listenToType('child_removed');
+const stopListeningToChildRemoved = stopListeningToType('child_removed');
+const listenToChildChanged = listenToType('child_changed');
+const stopListeningToChildChanged = stopListeningToType('child_changed');
 
 function stopListeningToChildren(path: string) {
   stopListeningToChildAdded(path);
@@ -88,9 +88,9 @@ function stopListeningToChildren(path: string) {
 // Write data
 
 function setAtPath(path: string, value: Object|string|boolean): Promise {
-  var ref = new Firebase(firebaseUrl + path);
+  const ref = new Firebase(firebaseUrl + path);
 
-  var promise = new RSVP.Promise(function(resolve, reject) {
+  const promise = new RSVP.Promise(function(resolve, reject) {
     ref.set(value, function(error) {
       if (error) {
         reject();
@@ -107,9 +107,9 @@ function setAtPath(path: string, value: Object|string|boolean): Promise {
  * Value has to be an object or this does nothing.
  */
 function update(path: string, value: Object): Promise {
-  var ref = new Firebase(firebaseUrl + path);
+  const ref = new Firebase(firebaseUrl + path);
 
-  var promise = new RSVP.Promise(function(resolve, reject) {
+  const promise = new RSVP.Promise(function(resolve, reject) {
     ref.update(value, function(error) {
       if (error) {
         reject();
@@ -123,9 +123,9 @@ function update(path: string, value: Object): Promise {
 }
 
 function remove(path: string): Promise {
-  var ref = new Firebase(firebaseUrl + path);
+  const ref = new Firebase(firebaseUrl + path);
 
-  var promise = new RSVP.Promise(function(resolve, reject) {
+  const promise = new RSVP.Promise(function(resolve, reject) {
     ref.remove(function(error) {
       if (error) {
         reject();
@@ -139,8 +139,8 @@ function remove(path: string): Promise {
 }
 
 function push(path: string, value: Object|string): string {
-  var ref = new Firebase(firebaseUrl + path);
-  var pushed = ref.push(value);
+  const ref = new Firebase(firebaseUrl + path);
+  const pushed = ref.push(value);
   return pushed.key();
 }
 
