@@ -2,44 +2,45 @@
  * @flow
  */
 
-var React = require('react/addons');
-var { PureRenderMixin } = React.addons;
-var { PropTypes } = React;
-var { Link } = require('react-router');
-var compose = require('lodash/function/compose');
+const React = require('react/addons');
+const Immutable = require('immutable');
+const { Link } = require('react-router');
+const compose = require('lodash/function/compose');
 
-var Habits = require('../Habits/Habits');
-var HabitsStore = require('../Habits/HabitsStore');
-var StoresMixin = require('../StoresMixin');
+const Habits = require('../Habits/Habits');
+const HabitsStore = require('../Habits/HabitsStore');
+const PureRender = require('../PureRender');
+const ConnectToStores = require('../ConnectToStores');
 
-var { formatMoment, getCurrentMoment } = require('../shared/dateUtils');
+const { formatMoment, getCurrentMoment } = require('../shared/dateUtils');
 
-var HabitsHandler = React.createClass({
+const { PropTypes } = React;
+
+const stores = [HabitsStore];
+
+const getStateFromStores = () => ({
+  habits: HabitsStore.get()
+});
+
+const HabitsHandler = React.createClass({
   propTypes: {
-    user: PropTypes.object
-  },
-
-  mixins: [StoresMixin, PureRenderMixin],
-
-  stores: [HabitsStore],
-
-  getStateFromStores(): Object {
-    return {
-      habits: HabitsStore.get()
-    };
+    user: PropTypes.instanceOf(Immutable.Map).isRequired,
+    data: PropTypes.shape({
+      habits: PropTypes.instanceOf(Immutable.Map).isRequired
+    }).isRequired
   },
 
   render(): any {
     if (!this.props.user) { return null; }
 
-    var todayDisplay = compose(formatMoment('ll'), getCurrentMoment)();
+    const todayDisplay = compose(formatMoment('ll'), getCurrentMoment)();
 
     return (
       <div>
         <div>
           {todayDisplay}
         </div>
-        <Habits habits={this.state.habits}
+        <Habits habits={this.props.data.habits}
           user={this.props.user}
         />
         <Link to="new">New habit</Link>
@@ -48,4 +49,7 @@ var HabitsHandler = React.createClass({
   }
 });
 
-module.exports = HabitsHandler;
+module.exports = compose(
+  ConnectToStores(stores, getStateFromStores),
+  PureRender
+)(HabitsHandler);

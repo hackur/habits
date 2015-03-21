@@ -2,29 +2,33 @@
  * @flow
  */
 
-var React = require('react/addons');
-var { PureRenderMixin } = React.addons;
-var { PropTypes } = React;
-var { Navigation } = require('react-router');
+const React = require('react/addons');
+const Immutable = require('immutable');
+const { Navigation } = require('react-router');
+const compose = require('lodash/function/compose');
 
-var HabitsStore = require('../Habits/HabitsStore');
-var HabitsViewActionCreators = require('../Habits/HabitsViewActionCreators');
-var StoresMixin = require('../StoresMixin');
+const ConnectToStores = require('../ConnectToStores');
+const PureRender = require('../PureRender');
+const HabitsStore = require('../Habits/HabitsStore');
+const HabitsViewActionCreators = require('../Habits/HabitsViewActionCreators');
 
-var NewHabitHandler = React.createClass({
+const { PropTypes } = React;
+
+const stores = [HabitsStore];
+
+const getStateFromStores = () => ({
+  habits: HabitsStore.get()
+});
+
+const NewHabitHandler = React.createClass({
   propTypes: {
-    user: PropTypes.object.isRequired
+    user: PropTypes.instanceOf(Immutable.Map).isRequired,
+    data: PropTypes.shape({
+      habits: PropTypes.instanceOf(Immutable.Map).isRequired
+    }).isRequired
   },
 
-  mixins: [StoresMixin, PureRenderMixin, Navigation],
-
-  stores: [HabitsStore],
-
-  getStateFromStores(): Object {
-    return {
-      habits: HabitsStore.get()
-    };
-  },
+  mixins: [Navigation],
 
   handleChangeNewHabit(e: Object) {
     HabitsViewActionCreators.changeNewHabit(e.target.value);
@@ -34,7 +38,7 @@ var NewHabitHandler = React.createClass({
     if (e.keyCode === 13 && (e.metaKey || e.ctrlKey)) {
       HabitsViewActionCreators.submitNewHabit(
         this.props.user.get('user'),
-        this.state.habits.get('newHabit')
+        this.props.data.habits.get('newHabit')
       );
 
       this.transitionTo('habits');
@@ -44,7 +48,7 @@ var NewHabitHandler = React.createClass({
   render(): any {
     return (
       <div>
-        <input value={this.state.habits.get('newHabit')}
+        <input value={this.props.data.habits.get('newHabit')}
           onChange={this.handleChangeNewHabit}
           onKeyDown={this.handleKeyDownNewHabit}
         />
@@ -53,4 +57,7 @@ var NewHabitHandler = React.createClass({
   }
 });
 
-module.exports = NewHabitHandler;
+module.exports = compose(
+  ConnectToStores(stores, getStateFromStores),
+  PureRender
+)(NewHabitHandler);

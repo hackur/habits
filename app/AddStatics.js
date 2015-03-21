@@ -20,4 +20,3 @@ const AddStatics: (
 };
 
 module.exports = curry(AddStatics);
-
