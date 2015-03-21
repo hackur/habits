@@ -3,6 +3,7 @@
  */
 
 const React = require('react/addons');
+const curry = require('lodash/function/curry');
 
 const AddStatics: (
   x: Object,
@@ -18,5 +19,5 @@ const AddStatics: (
   return Enhanced;
 };
 
-module.exports = AddStatics;
+module.exports = curry(AddStatics);
 
