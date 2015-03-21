@@ -2,22 +2,21 @@
  * @flow
  */
 
-var React = require('react/addons');
-var { PropTypes } = React;
-var { PureRenderMixin } = React.addons;
+const React = require('react/addons');
 
-var InsideHeader = require('./InsideHeader');
-var InsideFooter = require('./InsideFooter');
-var UserViewActionCreators = require('../User/UserViewActionCreators');
+const InsideHeader = require('./InsideHeader');
+const InsideFooter = require('./InsideFooter');
+const PureRender = require('../PureRender');
+const UserViewActionCreators = require('../User/UserViewActionCreators');
+
+const { PropTypes } = React;
 
 require('./Inside.less');
 
-var Inside = React.createClass({
+const Inside = React.createClass({
   propTypes: {
     user: PropTypes.object.isRequired
   },
-
-  mixins: [PureRenderMixin],
 
   componentWillMount() {
     UserViewActionCreators.listenToUserMeta(
@@ -46,4 +45,4 @@ var Inside = React.createClass({
   }
 });
 
-module.exports = Inside;
+module.exports = PureRender(Inside);

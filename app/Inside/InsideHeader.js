@@ -2,15 +2,14 @@
  * @flow
  */
 
-var React = require('react/addons');
-var { PureRenderMixin } = React.addons;
-var { Link } = require('react-router');
+const React = require('react/addons');
+const { Link } = require('react-router');
 
 require('./InsideHeader.less');
 
-var InsideHeader = React.createClass({
-  mixins: [PureRenderMixin],
+const PureRender = require('../PureRender');
 
+const InsideHeader = React.createClass({
   render(): any {
     return (
       <div className="inside-header">
@@ -22,4 +21,4 @@ var InsideHeader = React.createClass({
   }
 });
 
-module.exports = InsideHeader;
+module.exports = PureRender(InsideHeader);

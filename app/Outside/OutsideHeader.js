@@ -1,11 +1,14 @@
-var React = require('react/addons');
-var { PureRenderMixin } = React.addons;
+/**
+ * @flow
+ */
+
+const React = require('react/addons');
 
 require('./OutsideHeader.less');
 
-var OutsideHeader = React.createClass({
-  mixins: [PureRenderMixin],
+const PureRender = require('../PureRender');
 
+const OutsideHeader = React.createClass({
   render(): any {
     return (
       <div className="outside-header">
@@ -17,4 +20,4 @@ var OutsideHeader = React.createClass({
   }
 });
 
-module.exports = OutsideHeader;
+module.exports = PureRender(OutsideHeader);

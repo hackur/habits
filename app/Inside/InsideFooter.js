@@ -2,20 +2,19 @@
  * @flow
  */
 
-var React = require('react/addons');
-var { PropTypes } = React;
-var { PureRenderMixin } = React.addons;
+const React = require('react/addons');
 
-var InsideViewActionCreators = require('./InsideViewActionCreators');
+const PureRender = require('../PureRender');
+const InsideViewActionCreators = require('./InsideViewActionCreators');
+
+const { PropTypes } = React;
 
 require('./InsideFooter.less');
 
-var InsideFooter = React.createClass({
+const InsideFooter = React.createClass({
   propTypes: {
     user: PropTypes.object.isRequired
   },
-
-  mixins: [PureRenderMixin],
 
   handleClickLogOut(e: Object) {
     e.preventDefault();
@@ -36,4 +35,4 @@ var InsideFooter = React.createClass({
   }
 });
 
-module.exports = InsideFooter;
+module.exports = PureRender(InsideFooter);

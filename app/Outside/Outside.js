@@ -2,22 +2,23 @@
  * @flow
  */
 
-var React = require('react/addons');
-var { PropTypes } = React;
-var { PureRenderMixin } = React.addons;
-var { Navigation } = require('react-router');
-
-var OutsideHeader = require('./OutsideHeader');
+const React = require('react/addons');
+const { Navigation } = require('react-router');
 
 require('./Outside.less');
 
-var Outside = React.createClass({
+const OutsideHeader = require('./OutsideHeader');
+const PureRender = require('../PureRender');
+
+const { PropTypes } = React;
+
+const Outside = React.createClass({
   propTypes: {
     user: PropTypes.object.isRequired,
     children: PropTypes.any.isRequired
   },
 
-  mixins: [PureRenderMixin, Navigation],
+  mixins: [Navigation],
 
   render(): any {
     return (
@@ -29,4 +30,4 @@ var Outside = React.createClass({
   }
 });
 
-module.exports = Outside;
+module.exports = PureRender(Outside);

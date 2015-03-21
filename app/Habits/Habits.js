@@ -4,16 +4,14 @@
 
 const React = require('react/addons');
 const HabitsItem = require('./HabitsItem');
+const PureRender = require('../PureRender');
 
-const { PureRenderMixin } = React.addons;
 const { PropTypes } = React;
 
 const Habits = React.createClass({
   propTypes: {
     user: PropTypes.object.isRequired
   },
-
-  mixins: [PureRenderMixin],
 
   render(): any {
     const habits = this.props.user.get('habits').map(habit => (
@@ -31,4 +29,4 @@ const Habits = React.createClass({
   }
 });
 
-module.exports = Habits;
+module.exports = PureRender(Habits);

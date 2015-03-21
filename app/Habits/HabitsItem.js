@@ -3,18 +3,17 @@
  */
 
 const React = require('react/addons');
-const { PureRenderMixin } = React.addons;
-const { PropTypes } = React;
 const { Link } = require('react-router');
 
+const PureRender = require('../PureRender');
 const HabitViewActionCreators = require('../Habit/HabitViewActionCreators');
+
+const { PropTypes } = React;
 
 const HabitsItem = React.createClass({
   propTypes: {
     habit: PropTypes.object.isRequired
   },
-
-  mixins: [PureRenderMixin],
 
   handleComplete(e: Object) {
     e.preventDefault();
@@ -50,4 +49,4 @@ const HabitsItem = React.createClass({
   }
 });
 
-module.exports = HabitsItem;
+module.exports = PureRender(HabitsItem);

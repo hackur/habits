@@ -3,15 +3,14 @@
  */
 
 const React = require('react/addons');
-const { PureRenderMixin } = React.addons;
 const { PropTypes } = React;
+
+const PureRender = require('../PureRender');
 
 const Habit = React.createClass({
   propTypes: {
     habit: PropTypes.object.isRequired
   },
-
-  mixins: [PureRenderMixin],
 
   render(): any {
     return (
@@ -22,4 +21,4 @@ const Habit = React.createClass({
   }
 });
 
-module.exports = Habit;
+module.exports = PureRender(Habit);
