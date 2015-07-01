@@ -7,4 +7,5 @@
 
 [options]
 module.system=node
+module.name_mapper='^.*\(css\)$' -> 'styles-flow-mock'
 module.name_mapper='^.*\(less\)$' -> 'styles-flow-mock'
