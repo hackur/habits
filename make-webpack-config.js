@@ -47,16 +47,16 @@ module.exports = function(options) {
   }
 
   var jsLoader = options.build ?
-    { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' } :
-    { test: /\.js$/, exclude: /node_modules/, loaders: ['react-hot-loader', 'babel-loader'] };
+    {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader?optional[]=runtime'} :
+    {test: /\.js$/, exclude: /node_modules/, loaders: ['react-hot-loader', 'babel-loader?optional[]=runtime']};
 
   var cssLoader = options.build ?
-    { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') } :
-    { test: /\.css$/, loader: 'style-loader!css-loader' };
+    {test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader')} :
+    {test: /\.css$/, loader: 'style-loader!css-loader'};
 
   var lessLoader = options.build ?
-    { test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader') } :
-    { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' };
+    {test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules!less-loader')} :
+    {test: /\.less$/, loader: 'style-loader!css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]!less-loader'};
 
   return {
     entry: {
@@ -76,7 +76,7 @@ module.exports = function(options) {
     },
     resolve: {
       root: path.join(__dirname, 'app'),
-      modulesDirectories: ['node_modules', 'bower_components', 'shared']
+      modulesDirectories: ['node_modules', 'shared']
     },
     plugins: plugins,
     devServer: {
