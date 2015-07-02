@@ -10,22 +10,14 @@ import * as firebaseUtils from 'shared/firebaseUtils';
 import { Action } from 'shared/sharedTypes';
 
 export function receiveLoggedIn(auth: RawAuth): Action {
-  if (__DEV__) {
-    console.log('Logged in with data: ', auth);
-  }
-
   return {
     type: ActionTypes.UPDATE_USER,
-    description: 'Became logged in',
+    description: {desc: 'Became logged in', data: auth},
     update: user => user.merge(UserUtils.getUserFromRawAuth(auth))
   };
 }
 
 export function receiveLoggedOut(): Action {
-  if (__DEV__) {
-    console.log('Logged out');
-  }
-
   return {
     type: ActionTypes.UPDATE_USER,
     description: 'Became logged out',

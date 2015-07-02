@@ -2,6 +2,6 @@
 
 export type Action = {
   type: number;
-  description: string;
+  description: string | Object;
   update: Function;
 };
