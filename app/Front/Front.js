@@ -6,7 +6,10 @@ class Front extends React.Component {
   render(): React.Element {
     return <div>
       Front!
-      <a onClick={this.props.authenticateWithTwitter}>
+      <a href="#" onClick={e => {
+        e.preventDefault();
+        this.props.authenticateWithTwitter();
+      }}>
         Twitter
       </a>
     </div>;

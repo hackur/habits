@@ -1,24 +1,26 @@
 /* @flow */
 
-import type { RawAuth } from './UserTypes';
+import Immutable from 'immutable';
+
+import type { RawAuth, User, UserMeta } from './UserTypes';
+
+import * as UserUtils from './UserUtils';
+import * as UserAPI from './UserAPI';
 
 import ActionTypes from '../ActionTypes';
 
 import * as firebaseUtils from 'shared/firebaseUtils';
 import { Action } from 'shared/sharedTypes';
 
-export function receiveLoggedIn(authData: RawAuth): Action {
+export function receiveLoggedIn(auth: RawAuth): Action {
   if (__DEV__) {
-    console.log('Logged in with data: ', authData);
+    console.log('Logged in with data: ', auth);
   }
 
   return {
     type: ActionTypes.UPDATE_USER,
-    description: 'Become logged in',
-    update: user => user.merge({
-      hasAuthStatus: true,
-      isLoggedIn: true
-    })
+    description: 'Became logged in',
+    update: user => user.merge(UserUtils.getUserFromRawAuth(auth))
   };
 }
 
@@ -29,10 +31,10 @@ export function receiveLoggedOut(): Action {
 
   return {
     type: ActionTypes.UPDATE_USER,
-    description: 'Become logged out',
+    description: 'Became logged out',
     update: user => user.merge({
       hasAuthStatus: true,
-      isLoggedIn: false
+      auth: null
     })
   };
 }
@@ -48,7 +50,7 @@ export function authenticateWithTwitter(): (x: Function) => Promise {
     return firebaseUtils.createAuthWithPopup('twitter').then(() => {
       dispatch({
         type: ActionTypes.UPDATE_USER,
-        description: 'Receive authentication success',
+        description: 'Received successful Twitter authentication',
         update: user => user
       });
     });
@@ -58,5 +60,25 @@ export function authenticateWithTwitter(): (x: Function) => Promise {
 export function logOut(): () => void {
   return () => {
     firebaseUtils.unauth();
+  };
+}
+
+export function receiveUserMeta(meta: UserMeta): Action {
+  return {
+    type: ActionTypes.UPDATE_USER,
+    description: 'Received user meta',
+    update: user => user.set('meta', Immutable.fromJS(meta))
+  };
+}
+
+export function listenToUserMeta(user: User, callback: Function): Function {
+  return () => {
+    UserAPI.listenToUserMeta(user, callback);
+  };
+}
+
+export function stopListeningToUserMeta(user: User): Function {
+  return () => {
+    UserAPI.stopListeningToUserMeta(user);
   };
 }

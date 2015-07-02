@@ -47,8 +47,8 @@ module.exports = function(options) {
   }
 
   var jsLoader = options.build ?
-    {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader?optional[]=runtime'} :
-    {test: /\.js$/, exclude: /node_modules/, loaders: ['react-hot-loader', 'babel-loader?optional[]=runtime']};
+    {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader?optional[]=runtime&stage=1'} :
+    {test: /\.js$/, exclude: /node_modules/, loaders: ['react-hot-loader', 'babel-loader?optional[]=runtime&stage=1']};
 
   var cssLoader = options.build ?
     {test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader')} :

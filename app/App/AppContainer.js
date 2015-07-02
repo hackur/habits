@@ -1,22 +1,25 @@
 /* @flow */
 
 import React from 'react';
-import { Connector } from 'redux/react';
+import { connect } from 'redux/react';
 import { bindActionCreators } from 'redux';
 
 import App from './App';
 import * as UserActions from '../User/UserActions';
+import { userPropTypes } from '../User/UserTypes';
 
-export default class ApplicationContainer extends React.Component {
+class AppContainer extends React.Component {
   render() {
-    return <Connector select={state => ({user: state.app.get('user')})}>
-      {({ user, dispatch }) =>
-        <App user={user}
-          {...bindActionCreators(UserActions, dispatch)}>
-          {this.props.children}
-        </App>
-      }
-    </Connector>;
+    return <App user={this.props.user}
+      {...bindActionCreators(UserActions, this.props.dispatch)}>
+      {this.props.children}
+    </App>;
   }
 }
 
+AppContainer.propTypes = {
+  user: userPropTypes.isRequired,
+  dispatch: React.PropTypes.func.isRequired
+};
+
+export default connect(state => ({user: state.app.get('user')}))(AppContainer);

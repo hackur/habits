@@ -6,16 +6,26 @@ import ActionTypes from './ActionTypes';
 var initialState = Immutable.fromJS({
   user: {
     hasAuthStatus: false,
-    isLoggedIn: false
+    auth: null
   }
 });
 
 export default function(state = initialState, action: Object) {
+  if (!action) {
+    if (__DEV__) {
+      console.log(
+        'Action undefined. You need to return an object. ' +
+        'Will not modify state.');
+    }
+
+    return state;
+  }
+
   if (__DEV__) {
     console.log(
       'Action: ',
-      action.description || 'No description: ',
-      !action.description ? action : '');
+      action && action.description || 'No description: ',
+      action && !action.description ? action : '');
   }
 
   switch (action.type) {

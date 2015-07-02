@@ -27,3 +27,29 @@ export function listenToAuthStatus(loggedInCallback: Function, loggedOutCallback
 export function unauth() {
   new Firebase(__FIREBASE__).unauth();
 }
+
+export function listenTo(type: string): (x: string, y: Function) => void {
+  return (path: string, callback: Function) => {
+    new Firebase(`${__FIREBASE__}${path}`).on(type, snapshot => {
+      callback({key: snapshot.key(), value: snapshot.val()});
+    });
+  };
+}
+
+export function stopListeningTo(type: string): (x: string) => void {
+  return path => {
+    new Firebase(`${__FIREBASE__}${path}`).off(type);
+  };
+}
+
+export function set(path: string, value: mixed): Promise {
+  return new Promise((resolve, reject) => {
+    new Firebase(`${__FIREBASE__}${path}`).set(value, error => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(value);
+      }
+    });
+  });
+}

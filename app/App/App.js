@@ -16,7 +16,9 @@ var App = React.createClass({
     loadApp: React.PropTypes.func.isRequired,
     receiveLoggedIn: React.PropTypes.func.isRequired,
     receiveLoggedOut: React.PropTypes.func.isRequired,
-    logOut: React.PropTypes.func.isRequired
+    logOut: React.PropTypes.func.isRequired,
+    listenToUserMeta: React.PropTypes.func.isRequired,
+    stopListeningToUserMeta: React.PropTypes.func.isRequired
   },
 
   mixins: [Navigation],
@@ -33,12 +35,12 @@ var App = React.createClass({
    */
   componentDidUpdate(prevProps: Object) {
     if (
-      (!prevProps.user.get('hasAuthStatus') || !prevProps.user.get('isLoggedIn')) &&
-      this.props.user.get('isLoggedIn')) {
+      (!prevProps.user.get('hasAuthStatus') || !prevProps.user.get('auth')) &&
+      this.props.user.get('auth')) {
       this.replaceWith('habits');
     } else if (
-      (!prevProps.user.get('hasAuthStatus') || prevProps.user.get('isLoggedIn')) &&
-      !this.props.user.get('isLoggedIn')) {
+      (!prevProps.user.get('hasAuthStatus') || prevProps.user.get('auth')) &&
+      !this.props.user.get('auth')) {
       this.replaceWith('/');
     }
   },
@@ -48,9 +50,11 @@ var App = React.createClass({
       return <div>Loading...</div>;
     }
 
+    var { user, ...actions } = this.props;
+
     return <div className={styles.app}>
-      {this.props.user.get('isLoggedIn') ?
-        <Inside user={this.props.user} logOut={this.props.logOut}>
+      {user.get('auth') ?
+        <Inside user={user} {...actions}>
           {this.props.children}
         </Inside> :
         <Outside>
