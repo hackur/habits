@@ -3,6 +3,12 @@
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
+export type RawAuth = {
+  auth: {
+    uid: string;
+  };
+};
+
 export type User = {
   hasAuthStatus: boolean;
   isLoggedIn: boolean;

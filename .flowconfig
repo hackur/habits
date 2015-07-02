@@ -9,3 +9,6 @@
 module.system=node
 module.name_mapper='^.*\(css\)$' -> 'styles-flow-mock'
 module.name_mapper='^.*\(less\)$' -> 'styles-flow-mock'
+module.name_mapper='^\(shared.*\)' -> '../\1'
+module.name_mapper='^\(shared.*\)' -> '../../\1'
+module.name_mapper='^\(shared.*\)' -> '../../../\1'

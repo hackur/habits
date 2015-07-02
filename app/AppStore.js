@@ -11,7 +11,10 @@ var initialState = Immutable.fromJS({
 });
 
 export default function(state = initialState, action: Object) {
-  console.log('Action: ', action);
+  if (__DEV__) {
+    console.log('Action: ', action);
+  }
+
   switch (action.type) {
     case ActionTypes.UPDATE_USER:
       return state.update('user', action.update);

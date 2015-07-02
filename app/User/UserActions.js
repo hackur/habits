@@ -1,10 +1,13 @@
 /* @flow */
 
-import * as firebaseUtils from '../firebaseUtils';
-import ActionTypes from '../ActionTypes';
-import { Action } from '../shared/sharedTypes';
+import type { RawAuth } from './UserTypes';
 
-export function receiveLoggedIn(authData): Action {
+import ActionTypes from '../ActionTypes';
+
+import * as firebaseUtils from 'shared/firebaseUtils';
+import { Action } from 'shared/sharedTypes';
+
+export function receiveLoggedIn(authData: RawAuth): Action {
   if (__DEV__) {
     console.log('Logged in with data: ', authData);
   }

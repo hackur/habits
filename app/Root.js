@@ -5,62 +5,63 @@
 import React from 'react';
 import { createRedux, bindActionCreators } from 'redux';
 import { Provider, Connector } from 'redux/react';
-import { Router, Route, Navigation } from 'react-router';
+import { Router, Route } from 'react-router';
 
+import AppContainer from './App/AppContainer';
 import AppStore from './AppStore';
 import * as UserActions from './User/UserActions';
 import { userPropTypes } from './User/UserTypes';
 
-class ApplicationContainer extends React.Component {
-  render() {
-    return <Connector select={state => ({user: state.app.get('user')})}>
-      {({ user, dispatch }) => (
-        <Application user={user}
-          {...bindActionCreators(UserActions, dispatch)}>
-          {this.props.children}
-        </Application>
-      )}
-    </Connector>;
-  }
-}
+// class ApplicationContainer extends React.Component {
+//   render() {
+//     return <Connector select={state => ({user: state.app.get('user')})}>
+//       {({ user, dispatch }) =>
+//         <Application user={user}
+//           {...bindActionCreators(UserActions, dispatch)}>
+//           {this.props.children}
+//         </Application>
+//       }
+//     </Connector>;
+//   }
+// }
 
-var Application = React.createClass({
-  mixins: [Navigation],
+// var Application = React.createClass({
+//   mixins: [Navigation],
 
-  componentDidMount() {
-    this.props.loadApp(
-      this.props.receiveLoggedIn,
-      this.props.receiveLoggedOut);
-  },
+//   componentDidMount() {
+//     this.props.loadApp(
+//       this.props.receiveLoggedIn,
+//       this.props.receiveLoggedOut);
+//   },
 
-  componentDidUpdate(prevProps) {
-    if (!prevProps.user.get('isLoggedIn') && this.props.user.get('isLoggedIn')) {
-      this.replaceWith('habits');
-    } else if (prevProps.user.get('isLoggedIn') && !this.props.user.get('isLoggedIn')) {
-      this.replaceWith('/');
-    }
-  },
+//   componentDidUpdate(prevProps) {
+//     if (!prevProps.user.get('isLoggedIn') && this.props.user.get('isLoggedIn')) {
+//       this.replaceWith('habits');
+//     } else if (prevProps.user.get('isLoggedIn') && !this.props.user.get('isLoggedIn')) {
+//       this.replaceWith('/');
+//     }
+//   },
 
-  render() {
-    return <div>
-      {this.props.user.get('hasAuthStatus') ? this.props.children : 'Loading...'}
-    </div>;
-  }
-});
+//   render() {
+//     return <div>
+//       {this.props.user.get('hasAuthStatus') ? this.props.children : 'Loading...'}
+//     </div>;
+//   }
+// });
 
-Application.propTypes = {
-  user: userPropTypes.isRequired,
-  loadApp: React.PropTypes.func.isRequired,
-  receiveLoggedIn: React.PropTypes.func.isRequired,
-  receiveLoggedOut: React.PropTypes.func.isRequired
-};
+// Application.propTypes = {
+//   user: userPropTypes.isRequired,
+//   loadApp: React.PropTypes.func.isRequired,
+//   receiveLoggedIn: React.PropTypes.func.isRequired,
+//   receiveLoggedOut: React.PropTypes.func.isRequired
+// };
 
 class InsideContainer extends React.Component {
   render() {
     return <Connector select={state => ({user: state.app.get('user')})}>
-      {({ user, dispatch }) => (
+      {({ user, dispatch }) =>
         <Inside user={user} logOut={(...args) => dispatch(UserActions.logOut(...args))} />
-      )}
+      }
     </Connector>;
   }
 }
@@ -82,9 +83,9 @@ Inside.propTypes = {
 class OutsideContainer extends React.Component {
   render() {
     return <Connector select={state => ({user: state.app.get('user')})}>
-      {({ user, dispatch }) => (
+      {({ user, dispatch }) =>
         <Outside user={user} {...bindActionCreators(UserActions, dispatch)} />
-      )}
+      }
     </Connector>;
   }
 }
@@ -112,7 +113,7 @@ class Root extends React.Component {
     return <Provider redux={redux}>
       {() =>
         <Router history={this.props.history}>
-          <Route component={ApplicationContainer}>
+          <Route component={AppContainer}>
             <Route component={OutsideContainer} path="/" />
             <Route component={InsideContainer} path="habits" />
           </Route>
