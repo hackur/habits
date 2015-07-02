@@ -12,7 +12,10 @@ var initialState = Immutable.fromJS({
 
 export default function(state = initialState, action: Object) {
   if (__DEV__) {
-    console.log('Action: ', action);
+    console.log(
+      'Action: ',
+      action.description || 'No description: ',
+      !action.description ? action : '');
   }
 
   switch (action.type) {

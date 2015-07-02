@@ -24,7 +24,7 @@ export function receiveLoggedIn(authData: RawAuth): Action {
 
 export function receiveLoggedOut(): Action {
   if (__DEV__) {
-    console.log('Logged out: ');
+    console.log('Logged out');
   }
 
   return {
@@ -45,10 +45,7 @@ export function loadApp(loggedInCallback: () => Action, loggedOutCallback: () =>
 
 export function authenticateWithTwitter(): (x: Function) => Promise {
   return dispatch => {
-    return firebaseUtils.createAuthWithPopup('twitter').then(authData => {
-      if (__DEV__) {
-        console.log('Authenticated with Twitter: ', authData);
-      }
+    return firebaseUtils.createAuthWithPopup('twitter').then(() => {
       dispatch({
         type: ActionTypes.UPDATE_USER,
         description: 'Receive authentication success',
