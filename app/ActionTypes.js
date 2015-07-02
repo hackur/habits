@@ -1,5 +1,7 @@
 /* @flow */
 
+var u = 0;
+
 export default {
-  INCREMENT: 'INCREMENT'
+  UPDATE_USER: ++u
 };
