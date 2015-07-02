@@ -16,13 +16,18 @@ class Inside extends React.Component {
   }
 
   render(): React.Element {
+    var { children, logOut, user } = this.props;
+
     return <div>
       <div>Inside!</div>
-      {this.props.children}
-      Logged in as {this.props.user.getIn(['meta', 'displayName'])}
+      {children}
+      {user.get('meta') ?
+        `Logged in as ${user.getIn(['meta', 'displayName'])}` :
+        `Loading...`
+      }
       <a href="#" onClick={e => {
         e.preventDefault();
-        this.props.logOut();
+        logOut();
       }}>Log out</a>
     </div>;
   }

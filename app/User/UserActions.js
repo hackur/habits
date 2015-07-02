@@ -1,14 +1,11 @@
 /* @flow */
 
-import Immutable from 'immutable';
-
 import type { RawAuth, User, UserMeta } from './UserTypes';
 
+import Immutable from 'immutable';
+
 import * as UserUtils from './UserUtils';
-import * as UserAPI from './UserAPI';
-
 import ActionTypes from '../ActionTypes';
-
 import * as firebaseUtils from 'shared/firebaseUtils';
 import { Action } from 'shared/sharedTypes';
 
@@ -71,14 +68,25 @@ export function receiveUserMeta(meta: UserMeta): Action {
   };
 }
 
+/**
+ * We'll consider user created if they have meta data saved. If they don't it
+ * will create a new user and loop back around to this because we have a
+ * listener set for this value.
+ */
 export function listenToUserMeta(user: User, callback: Function): Function {
   return () => {
-    UserAPI.listenToUserMeta(user, callback);
+    firebaseUtils.listenTo('value')(`${user.dataUrl}/meta`, metaSnapshot => {
+      if (metaSnapshot && metaSnapshot.value) {
+        callback(metaSnapshot.value);
+      } else {
+        firebaseUtils.set(user.dataUrl, UserUtils.getNewUserData(user));
+      }
+    });
   };
 }
 
 export function stopListeningToUserMeta(user: User): Function {
   return () => {
-    UserAPI.stopListeningToUserMeta(user);
+    firebaseUtils.stopListeningTo('value')(`${user.dataUrl}/meta`);
   };
 }
