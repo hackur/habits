@@ -8,14 +8,16 @@ import Inside from './Inside';
 import Outside from './Outside';
 
 import { userPropTypes } from '../User/UserTypes';
+import * as UserActions from '../User/UserActions';
 
 import addNavigation from 'shared/addNavigation';
 
 class App extends React.Component {
   componentDidMount() {
-    this.props.loadApp(
-      this.props.receiveLoggedIn,
-      this.props.receiveLoggedOut);
+    var { dispatch } = this.props;
+    dispatch(UserActions.loadApp(
+      (auth) => dispatch(UserActions.receiveLoggedIn(auth)),
+      () => dispatch(UserActions.receiveLoggedOut())));
   }
 
   /**
@@ -42,16 +44,12 @@ class App extends React.Component {
       return <div>Loading...</div>;
     }
 
-    var { user, ...actions } = this.props;
+    var { user, dispatch, children } = this.props;
 
     return <div className={styles.app}>
       {user.get('auth') ?
-        <Inside user={user} {...actions}>
-          {this.props.children}
-        </Inside> :
-        <Outside>
-          {this.props.children}
-        </Outside>
+        <Inside user={user} dispatch={dispatch}>{children}</Inside> :
+        <Outside>{children}</Outside>
       }
     </div>;
   }
@@ -59,13 +57,8 @@ class App extends React.Component {
 
 App.propTypes = {
   user: userPropTypes.isRequired,
-  loadApp: React.PropTypes.func.isRequired,
-  receiveLoggedIn: React.PropTypes.func.isRequired,
-  receiveLoggedOut: React.PropTypes.func.isRequired,
-  logOut: React.PropTypes.func.isRequired,
-  listenToUserMeta: React.PropTypes.func.isRequired,
-  stopListeningToUserMeta: React.PropTypes.func.isRequired,
+  dispatch: React.PropTypes.func.isRequired,
   replaceWith: React.PropTypes.func.isRequired
 };
 
-export default addNavigation()(App);
+export default addNavigation(App);

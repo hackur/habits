@@ -8,8 +8,8 @@
 import React from 'react';
 import { Navigation } from 'react-router';
 
-export default function addNavigation(): (x: React.Element) => React.Element {
-  return DecoratedComponent => React.createClass({
+export default function addNavigation(DecoratedComponent: React.Element): React.Element {
+  return React.createClass({
     displayName: `AddNavigation(${DecoratedComponent.name})`,
 
     mixins: [Navigation],

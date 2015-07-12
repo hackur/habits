@@ -28,7 +28,7 @@ export function receiveLoggedOut(): Action {
   };
 }
 
-export function loadApp(loggedInCallback: () => Action, loggedOutCallback: () => Action): () => void {
+export function loadApp(loggedInCallback: (auth: RawAuth) => Action, loggedOutCallback: () => Action): () => void {
   return () => {
     firebaseUtils.listenToAuthStatus(loggedInCallback, loggedOutCallback);
   };
