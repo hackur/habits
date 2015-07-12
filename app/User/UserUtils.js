@@ -16,7 +16,7 @@ function getDisplayNameFromAuth(user: User): string {
 export function getUserFromRawAuth(auth: RawAuth): User {
   return {
     hasAuthStatus: true,
-    dataUrl: '/' + auth.uid,
+    dataUrl: `/${auth.uid}`,
     userId: auth.uid,
     meta: null,
     auth
