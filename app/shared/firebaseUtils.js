@@ -53,3 +53,8 @@ export function set(path: string, value: mixed): Promise {
     });
   });
 }
+
+export function push(path: string, value: mixed): String {
+  var pushRef = new Firebase(`${__FIREBASE__}${path}`).push(value);
+  return pushRef.key();
+}

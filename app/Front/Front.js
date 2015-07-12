@@ -2,13 +2,15 @@
 
 import React from 'react';
 
+import * as UserActions from '../User/UserActions';
+
 class Front extends React.Component {
   render(): React.Element {
     return <div>
       Front!
       <a href="#" onClick={e => {
         e.preventDefault();
-        this.props.authenticateWithTwitter();
+        this.props.dispatch(UserActions.authenticateWithTwitter());
       }}>
         Twitter
       </a>
@@ -17,7 +19,7 @@ class Front extends React.Component {
 }
 
 Front.propTypes = {
-  authenticateWithTwitter: React.PropTypes.func.isRequired
+  dispatch: React.PropTypes.func.isRequired
 };
 
 export default Front;

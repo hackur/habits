@@ -1,8 +1,8 @@
 /* @flow */
 
 import React from 'react';
-import { connect } from 'redux/react';
 import { bindActionCreators } from 'redux';
+import { connect } from 'redux/react';
 
 import App from './App';
 import * as UserActions from '../User/UserActions';
