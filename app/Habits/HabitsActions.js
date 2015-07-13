@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { RawHabit } from './HabitsTypes';
+import type { RawHabitsItem } from './HabitsTypes';
 import type { User } from '../User/UserTypes';
 
 import Immutable from 'immutable';
@@ -10,7 +10,10 @@ import ActionTypes from '../ActionTypes';
 import * as firebaseUtils from 'shared/firebaseUtils';
 import { Action } from 'shared/sharedTypes';
 
-export function mountHabits(user: User, callback: Function): () => void {
+export function mountHabits(
+  user: User,
+  callback: (child: {key: string; value: RawHabitsItem}) => Action
+): () => void {
   return () => {
     firebaseUtils.listenTo('child_added')(`${user.dataUrl}/habits`, callback);
   };
@@ -28,7 +31,7 @@ export function unmountHabits(user: User): Action {
   };
 }
 
-export function receiveHabitsChildAdded(child: {key: string; value: RawHabit}): Action {
+export function receiveHabitsChildAdded(child: {key: string; value: RawHabitsItem}): Action {
   return {
     type: ActionTypes.UPDATE_HABITS_CONTAINER,
     description: 'Receive habits child added',
@@ -36,7 +39,7 @@ export function receiveHabitsChildAdded(child: {key: string; value: RawHabit}): 
       'habits',
       habits => habits.push(
         Immutable.fromJS(
-          HabitsUtils.convertRawHabit(child.value, child.key))))
+          HabitsUtils.convertRawHabitsItem(child.value, child.key))))
   };
 }
 
@@ -49,7 +52,7 @@ export function changeNewHabitName(name: string): Action {
 }
 
 export function submitNewHabit(user: User, name: string): Action {
-  firebaseUtils.push(`${user.dataUrl}/habits`, HabitsUtils.buildNewHabit(name));
+  firebaseUtils.push(`${user.dataUrl}/habits`, HabitsUtils.buildNewHabitsItem(name));
   return {
     type: ActionTypes.UPDATE_HABITS_CONTAINER,
     description: 'Submit new habit -- clear input',

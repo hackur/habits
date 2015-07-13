@@ -1,8 +1,8 @@
 /* @flow */
 
-import type { RawHabit, Habit } from './HabitsTypes';
+import type { RawHabitsItem, HabitsItem } from './HabitsTypes';
 
-export function convertRawHabit(raw: RawHabit, key: string): Habit {
+export function convertRawHabitsItem(raw: RawHabitsItem, key: string): HabitsItem {
   return {
     name: raw.name,
     streak: raw.streak,
@@ -12,7 +12,7 @@ export function convertRawHabit(raw: RawHabit, key: string): Habit {
   };
 }
 
-export function buildNewHabit(name: string): RawHabit {
+export function buildNewHabitsItem(name: string): RawHabitsItem {
   return {
     name,
     streak: 0,

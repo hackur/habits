@@ -35,6 +35,6 @@ HabitsContainer.propTypes = {
 };
 
 export default connect(state => ({
-	user: state.app.get('user'),
-	habitsContainer: state.app.get('habitsContainer')
+  user: state.app.get('user'),
+  habitsContainer: state.app.get('habitsContainer')
 }))(HabitsContainer);

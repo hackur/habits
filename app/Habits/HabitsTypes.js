@@ -3,7 +3,7 @@
 import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-export type RawHabit = {
+export type RawHabitsItem = {
   name: string;
   streak: number;
   last: string;
@@ -13,7 +13,7 @@ export type RawHabit = {
   };
 };
 
-export type Habit = {
+export type HabitsItem = {
   name: string;
   streak: number;
   last: string;
@@ -24,7 +24,7 @@ export type Habit = {
   id: string;
 };
 
-export var habitPropTypes = ImmutablePropTypes.shape({
+export var habitsItemPropTypes = ImmutablePropTypes.shape({
   name: React.PropTypes.string.isRequired,
   streak: React.PropTypes.number.isRequired,
   last: React.PropTypes.string.isRequired,
@@ -36,7 +36,7 @@ export var habitPropTypes = ImmutablePropTypes.shape({
 });
 
 export var habitsContainerPropTypes = ImmutablePropTypes.shape({
-  habits: ImmutablePropTypes.listOf(habitPropTypes),
+  habits: ImmutablePropTypes.listOf(habitsItemPropTypes),
   newHabitName: React.PropTypes.string.isRequired
 });
 

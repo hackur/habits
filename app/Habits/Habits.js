@@ -1,6 +1,7 @@
 /* @flow */
 
 import React from 'react';
+import { Link } from 'react-router';
 
 import { habitsContainerPropTypes } from './HabitsTypes';
 import * as HabitsActions from './HabitsActions';
@@ -13,16 +14,21 @@ class Habits extends React.Component {
     return <div>
       {habitsContainer.get('habits').map(h => (
         <div key={h.get('id')}>
-          {h.get('name')}
+          <Link to={`habits/${h.get('id')}`}>
+            {h.get('name')}
+          </Link>
         </div>
       ))}
       <input type="text"
         value={habitsContainer.get('newHabitName')}
         onChange={e => dispatch(HabitsActions.changeNewHabitName(e.target.value))} />
-      <a onClick={() => dispatch(
-        HabitsActions.submitNewHabit(
-          this.props.user.toJS(),
-          habitsContainer.get('newHabitName')))}>
+      <a href="#" onClick={e => {
+        e.preventDefault();
+        dispatch(
+          HabitsActions.submitNewHabit(
+            this.props.user.toJS(),
+            habitsContainer.get('newHabitName')));
+      }}>
         New habit
       </a>
     </div>;

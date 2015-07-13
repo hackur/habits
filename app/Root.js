@@ -7,6 +7,7 @@ import { Router, Route } from 'react-router';
 
 import AppContainer from './App/AppContainer';
 import HabitsContainer from './Habits/HabitsContainer';
+import HabitContainer from './Habit/HabitContainer';
 import FrontContainer from './Front/FrontContainer';
 
 import AppStore from './AppStore';
@@ -21,6 +22,7 @@ class Root extends React.Component {
           <Route component={AppContainer}>
             <Route component={FrontContainer} path="/" />
             <Route component={HabitsContainer} path="habits" />
+            <Route component={HabitContainer} path="habits/:habitId" />
           </Route>
         </Router>
       }
