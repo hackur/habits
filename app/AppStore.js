@@ -12,7 +12,9 @@ var initialState = Immutable.fromJS({
   habitsContainer: {
     habits: [],
     newHabitName: ''
-  }
+  },
+
+  habit: {}
 });
 
 export default function(state = initialState, action: Object) {
@@ -39,6 +41,9 @@ export default function(state = initialState, action: Object) {
 
     case ActionTypes.UPDATE_HABITS_CONTAINER:
       return state.update('habitsContainer', action.update);
+
+    case ActionTypes.UPDATE_HABIT:
+      return state.update('habit', action.update);
 
     default:
       return state;
