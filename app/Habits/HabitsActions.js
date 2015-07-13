@@ -54,13 +54,18 @@ export function changeNewHabitName(name: string): Action {
 
 export function submitNewHabit(user: User, name: string): (x: Function) => void {
   return dispatch => {
-    var key = firebaseUtils.push(`${user.dataUrl}/habits`, HabitsUtils.buildNewHabitsItem(name));
-    firebaseUtils.set(`${user.dataUrl}/data/${key}`, {start: dateUtils.getTodayString()}).then(() => {
-      dispatch({
-        type: ActionTypes.UPDATE_HABITS_CONTAINER,
-        description: 'Submitted new habit',
-        update: container => container.set('newHabitName', '')
-      });
+    dispatch({
+      type: ActionTypes.UPDATE_HABITS_CONTAINER,
+      description: 'Submitted new habit',
+      update: container => container.set('newHabitName', '')
     });
+
+    var key = firebaseUtils.push(
+      `${user.dataUrl}/habits`,
+      HabitsUtils.buildNewHabitsItem(name));
+
+    firebaseUtils.set(
+      `${user.dataUrl}/data/${key}`,
+      {start: dateUtils.getTodayString()});
   };
 }

@@ -1,10 +1,10 @@
 /* @flow */
 
 import React from 'react';
-import { Link } from 'react-router';
 
 import { habitsContainerPropTypes } from './HabitsTypes';
 import * as HabitsActions from './HabitsActions';
+import HabitsItem from './HabitsItem';
 
 import { userPropTypes } from '../User/UserTypes';
 
@@ -13,11 +13,7 @@ class Habits extends React.Component {
     var { dispatch, habitsContainer } = this.props;
     return <div>
       {habitsContainer.get('habits').map(h => (
-        <div key={h.get('id')}>
-          <Link to={`habits/${h.get('id')}`}>
-            {h.get('name')}
-          </Link>
-        </div>
+        <HabitsItem key={h.get('id')} habit={h} />
       ))}
       <input type="text"
         value={habitsContainer.get('newHabitName')}
