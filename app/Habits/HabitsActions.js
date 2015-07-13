@@ -4,11 +4,11 @@ import type { RawHabitsItem } from './HabitsTypes';
 import type { User } from '../User/UserTypes';
 
 import Immutable from 'immutable';
-import moment from 'moment';
 
 import * as HabitsUtils from './HabitsUtils';
 import ActionTypes from '../ActionTypes';
 import * as firebaseUtils from 'shared/firebaseUtils';
+import * as dateUtils from 'shared/dateUtils';
 import { Action } from 'shared/sharedTypes';
 
 export function mountHabits(
@@ -55,7 +55,7 @@ export function changeNewHabitName(name: string): Action {
 export function submitNewHabit(user: User, name: string): (x: Function) => void {
   return dispatch => {
     var key = firebaseUtils.push(`${user.dataUrl}/habits`, HabitsUtils.buildNewHabitsItem(name));
-    firebaseUtils.set(`${user.dataUrl}/data/${key}`, {start: moment().format('YYYYMMDD')}).then(() => {
+    firebaseUtils.set(`${user.dataUrl}/data/${key}`, {start: dateUtils.getTodayString()}).then(() => {
       dispatch({
         type: ActionTypes.UPDATE_HABITS_CONTAINER,
         description: 'Submit new habit -- clear input',
