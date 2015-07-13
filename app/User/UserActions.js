@@ -82,3 +82,11 @@ export function stopListeningToUserMeta(user: User): Function {
     firebaseUtils.stopListeningTo('value')(`${user.dataUrl}/meta`);
   };
 }
+
+export function changeDisplayName(name: string): Action {
+  return {
+    type: ActionTypes.UPDATE_USER,
+    description: 'Change display name',
+    update: user => user.setIn(['meta', 'displayName'], name)
+  };
+}

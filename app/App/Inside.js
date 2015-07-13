@@ -1,6 +1,7 @@
 /* @flow */
 
 import React from 'react';
+import { Link} from 'react-router';
 
 import { userPropTypes } from '../User/UserTypes';
 import * as UserActions from '../User/UserActions';
@@ -26,7 +27,12 @@ class Inside extends React.Component {
       <div>Inside!</div>
       {children}
       {user.get('meta') ?
-        `Logged in as ${user.getIn(['meta', 'displayName'])}` :
+        <div>
+          Logged in as
+          <Link to="/settings">
+            {user.getIn(['meta', 'displayName'])}
+          </Link>
+        </div> :
         `Loading...`
       }
       <a href="#" onClick={e => {
