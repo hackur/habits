@@ -24,7 +24,7 @@ export function unmountHabits(user: User): Action {
   firebaseUtils.stopListeningTo('child_added')(`${user.dataUrl}/habits`);
   return {
     type: ActionTypes.UPDATE_HABITS_CONTAINER,
-    description: 'Unmount habits',
+    description: 'Unmounted habits',
     update: container => container.merge({
       habits: [],
       newHabitName: ''
@@ -35,7 +35,7 @@ export function unmountHabits(user: User): Action {
 export function receiveHabitsChildAdded(child: {key: string; value: RawHabitsItem}): Action {
   return {
     type: ActionTypes.UPDATE_HABITS_CONTAINER,
-    description: 'Receive habits child added',
+    description: 'Received habits child added',
     update: container => container.update(
       'habits',
       habits => habits.push(
@@ -47,7 +47,7 @@ export function receiveHabitsChildAdded(child: {key: string; value: RawHabitsIte
 export function changeNewHabitName(name: string): Action {
   return {
     type: ActionTypes.UPDATE_HABITS_CONTAINER,
-    description: 'Change new habit name',
+    description: 'Changed new habit name',
     update: container => container.set('newHabitName', name)
   };
 }
@@ -58,7 +58,7 @@ export function submitNewHabit(user: User, name: string): (x: Function) => void 
     firebaseUtils.set(`${user.dataUrl}/data/${key}`, {start: dateUtils.getTodayString()}).then(() => {
       dispatch({
         type: ActionTypes.UPDATE_HABITS_CONTAINER,
-        description: 'Submit new habit -- clear input',
+        description: 'Submitted new habit',
         update: container => container.set('newHabitName', '')
       });
     });

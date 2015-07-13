@@ -86,7 +86,7 @@ export function stopListeningToUserMeta(user: User): Function {
 export function changeDisplayName(name: string): Action {
   return {
     type: ActionTypes.UPDATE_USER,
-    description: 'Change display name',
+    description: 'Changed display name',
     update: user => user.setIn(['meta', 'displayName'], name)
   };
 }
