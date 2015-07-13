@@ -54,7 +54,7 @@ export function changeNewHabitName(name: string): Action {
 
 export function submitNewHabit(user: User, name: string): (x: Function) => void {
   return dispatch => {
-    const key = firebaseUtils.push(`${user.dataUrl}/habits`, HabitsUtils.buildNewHabitsItem(name));
+    var key = firebaseUtils.push(`${user.dataUrl}/habits`, HabitsUtils.buildNewHabitsItem(name));
     firebaseUtils.set(`${user.dataUrl}/data/${key}`, {start: moment().format('YYYYMMDD')}).then(() => {
       dispatch({
         type: ActionTypes.UPDATE_HABITS_CONTAINER,
