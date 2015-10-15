@@ -3,7 +3,6 @@
 /bower_components
 /config/devConfig.js
 /config/buildConfig.js
-/typecheck
 *.log
 *DS_Store
 firebase.json

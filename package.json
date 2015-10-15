@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start-dev": "node server-development",
-    "build": "webpack BABEL_ENV=production --config webpack-production.config.js --progress --profile --colors",
+    "build": "BABEL_ENV=production webpack --config webpack-production.config.js --progress --profile --colors",
     "build-index": "node server-build"
   },
   "repository": {
