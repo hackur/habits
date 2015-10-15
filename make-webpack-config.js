@@ -6,7 +6,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = function(options) {
   options = options || {};
-  var publicPath = options.build ? '/public/' : 'http://localhost:2992/_assets/';
+  // var publicPath = options.build ? '/public/' : 'http://localhost:2992/_assets/';
+  var publicPath = '/public/';
   var excludeFromStats = [
     /node_modules[\\\/]react(-router)?[\\\/]/
   ];
@@ -44,11 +45,14 @@ module.exports = function(options) {
       new webpack.NoErrorsPlugin(),
       new ExtractTextPlugin('[name].[chunkhash].css')
     );
+  } else {
+    plugins.push(
+      new webpack.HotModuleReplacementPlugin()
+    );
   }
 
-  var jsLoader = options.build ?
-    {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader?optional[]=runtime&stage=1'} :
-    {test: /\.js$/, exclude: /node_modules/, loaders: ['react-hot-loader', 'babel-loader?optional[]=runtime&stage=1']};
+  var jsLoader =
+    {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader?optional[]=runtime'};
 
   var cssLoader = options.build ?
     {test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader')} :
@@ -58,10 +62,16 @@ module.exports = function(options) {
     {test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules!less-loader')} :
     {test: /\.less$/, loader: 'style-loader!css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]!less-loader'};
 
+  var entry = options.build ?
+    ['./app/index'] :
+    [
+      'webpack-hot-middleware/client',
+      './app/index'
+    ];
+
   return {
-    entry: {
-      main: './app/index'
-    },
+    devtool: options.build ? 'source-map' : 'eval',
+    entry: entry,
     output: {
       path: path.join(__dirname, 'build', 'public'),
       publicPath: publicPath,

@@ -2,11 +2,20 @@
 
 module.exports = function(options) {
   options = options || {};
+  var devConfig = require('./config/devConfig.js');
+  var buildConfig = require('./config/buildConfig.js');
   var express = require('express');
   var path = require('path');
   var fs = require('fs');
   var ncp = require('ncp').ncp;
+  var webpack = require('webpack');
+  var webpackConfig = require('./make-webpack-config')({
+    config: options.build ? buildConfig : devConfig,
+    build: options.build
+  });
   var app = express();
+  var compiler = webpack(webpackConfig);
+
   var html = fs.readFileSync(path.resolve(__dirname, './app/simple.html'), 'utf-8');
 
   function renderApplication(path, scriptUrl, styleUrl, commonsUrl, callback) {
@@ -53,6 +62,12 @@ module.exports = function(options) {
     });
 
   } else {
+    app.use(require('webpack-dev-middleware')(compiler, {
+      noInfo: true,
+      publicPath: webpackConfig.output.publicPath
+    }));
+
+    app.use(require('webpack-hot-middleware')(compiler));
 
     app.use('/', express.static(path.join(__dirname, 'public'), {
     }));

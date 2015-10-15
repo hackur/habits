@@ -7,4 +7,3 @@
 *.log
 *DS_Store
 firebase.json
-/rethinkdb_data
