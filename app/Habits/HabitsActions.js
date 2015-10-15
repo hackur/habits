@@ -11,6 +11,50 @@ import * as firebaseUtils from 'shared/firebaseUtils';
 import * as dateUtils from 'shared/dateUtils';
 import { Action } from 'shared/sharedTypes';
 
+/**
+ * How to get initial data to know if empty or not:
+ * http://stackoverflow.com/a/27995609/4278451
+ *
+ * Example implementation
+
+function receiveChildAdded() {
+  return {
+    type: 'update_containers',
+    payload: {
+      update: state => state.set('isLoading', false),
+      entities
+    },
+    ...
+  }
+}
+
+function receiveInitialLoad() {
+  return {
+    type: 'update_containers',
+    payload: {
+      update: state => state.set('isLoading', false),
+      entities
+    },
+    ...
+  }
+}
+
+function mountHabitsV2(user: User): (x: Function) => void {
+  let isLoaded = false;
+  return dispatch => {
+    firebaseUtils.listenTo('child_added')(`${user.dataUrl}/habits`, child => {
+      if (!isLoaded) { return; }
+      dispatch(receiveChildAdded(child))
+    });
+
+    firebaseUtils.once(`${user.dataUrl}/habits`).then(children => {
+      dispatch(receiveInitialLoad(children));
+    });
+  };
+}
+
+ */
+
 export function mountHabits(
   user: User,
   callback: (child: {key: string; value: RawHabitsItem}) => Action
