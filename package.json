@@ -4,6 +4,7 @@
   "description": "Do some things every day",
   "main": "index.js",
   "scripts": {
+    "init-dev": "BABEL_ENV=production webpack --config webpack-dev.config.js",
     "start-dev": "node server-development",
     "build": "BABEL_ENV=production webpack --config webpack-production.config.js --progress --profile --colors",
     "build-index": "node server-build"
@@ -33,6 +34,7 @@
     "react-dom": "0.14.0",
     "react-hot-loader": "1.2.7",
     "react-immutable-proptypes": "1.0.0",
+    "react-redux": "4.0.0",
     "react-router": "1.0.0-rc3",
     "react-transform-catch-errors": "1.0.0",
     "react-transform-hmr": "1.0.1",
