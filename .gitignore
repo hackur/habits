@@ -1,6 +1,5 @@
 /build
 /node_modules
-/bower_components
 /config/devConfig.js
 /config/buildConfig.js
 *.log
