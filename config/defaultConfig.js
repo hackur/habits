@@ -6,4 +6,4 @@
 module.exports = {
   firebase: '',
   dev: true
-};
+}

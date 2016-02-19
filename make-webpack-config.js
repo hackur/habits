@@ -1,26 +1,24 @@
-'use strict';
-
-var path = require('path');
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var path = require('path')
+var webpack = require('webpack')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = function(options) {
-  options = options || {};
-  // var publicPath = options.build ? '/public/' : 'http://localhost:2992/_assets/';
-  var publicPath = '/public/';
+  options = options || {}
+  // var publicPath = options.build ? '/public/' : 'http://localhost:2992/_assets/'
+  var publicPath = '/public/'
   var excludeFromStats = [
     /node_modules[\\\/]react(-router)?[\\\/]/
-  ];
+  ]
   var plugins = [
     function() {
       this.plugin('done', function(stats) {
         var jsonStats = stats.toJson({
           chunkModules: true,
           exclude: excludeFromStats
-        });
-        jsonStats.publicPath = publicPath;
-        require('fs').writeFileSync(path.join(__dirname, 'build', 'stats.json'), JSON.stringify(jsonStats));
-      });
+        })
+        jsonStats.publicPath = publicPath
+        require('fs').writeFileSync(path.join(__dirname, 'build', 'stats.json'), JSON.stringify(jsonStats))
+      })
     },
 
     new webpack.DefinePlugin({
@@ -31,7 +29,7 @@ module.exports = function(options) {
     new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(ja)$/),
     new webpack.PrefetchPlugin('react'),
     new webpack.PrefetchPlugin('react/lib/ReactComponentBrowserEnvironment')
-  ];
+  ]
 
   if (options.build) {
     plugins.push(
@@ -44,30 +42,26 @@ module.exports = function(options) {
       }),
       new webpack.NoErrorsPlugin(),
       new ExtractTextPlugin('[name].[chunkhash].css')
-    );
+    )
   } else {
     plugins.push(
       new webpack.HotModuleReplacementPlugin()
-    );
+    )
   }
 
   var jsLoader =
-    {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader?optional[]=runtime'};
+    {test: /\.js$/, exclude: /node_modules/, loader: 'babel'}
 
   var cssLoader = options.build ?
     {test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader')} :
-    {test: /\.css$/, loader: 'style-loader!css-loader'};
-
-  var lessLoader = options.build ?
-    {test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules!less-loader')} :
-    {test: /\.less$/, loader: 'style-loader!css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]!less-loader'};
+    {test: /\.css$/, loader: 'style-loader!css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]'}
 
   var entry = options.build ?
     ['./app/index'] :
     [
       'webpack-hot-middleware/client',
       './app/index'
-    ];
+    ]
 
   return {
     devtool: options.build ? 'source-map' : 'eval',
@@ -80,8 +74,7 @@ module.exports = function(options) {
     module: {
       loaders: [
         jsLoader,
-        cssLoader,
-        lessLoader
+        cssLoader
       ]
     },
     resolve: {
@@ -94,5 +87,5 @@ module.exports = function(options) {
         exclude: excludeFromStats
       }
     }
-  };
-};
+  }
+}
