@@ -1,50 +1,35 @@
-``` javascript
+``` json
 {
-  "uid1": {
-    "habits": {
-      "pushedid1": {
-        bestStreak: {
-          streak: 35,
-          last: "20150103"
-        },
-        streak: 32,
-        last: "20150203",
-        name: "Brush teeth"
-      },
-
-      "pushedid2": {
-        streak: 0,
-        last: "20150201",
-        name: "Eat vegetables"
-      },
-      ...
-    },
-
-    "data": {
-      "pushedid1": {
-        days: {
-          20150201: {
-            ts: 135235235
-          },
-          20150202: {
-            ts: 135235241
-          },
-          ...
-        },
-        start: "20150201"
-      },
-      ...
-    },
-
-    meta: {
-      active: true,
-      displayName: "Something"
-    }
-
+  "usernames": {
+    "$username": "$uid"
   },
-
-  "uid2": {
-    ...
+  "users": {
+    "$uid": {
+      "username": "$username",
+      "displayName": "$displayName"
+    }
+  },
+  "habits": {
+    "$uid": {
+      "$pushedHabitId": {
+        "name": "Habit name",
+        "last": "2016-02-01",
+        "streak": 123,
+        "bestStreak": 13,
+        "bestStreakLast": "2016-01-01"
+      }
+    }
+  },
+  "habitData": {
+    "$pushedHabitId": {
+      "uid": "$uid",
+      "days": {
+        "2016-02-01": {
+          "ts": 135235241
+        }
+      },
+      "start": "2016-02-01"
+    }
   }
 }
-```
+``` 

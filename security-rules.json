@@ -1,8 +1,29 @@
 {
   "rules": {
-    "$uid": {
-      ".read": "$uid === auth.uid",
-      ".write": "$uid === auth.uid"
+    "usernames": {
+      "$username": {
+        ".read": true,
+        ".write": "root.child('users').child(auth.uid).child('username').val() === $username",
+        ".validate": "auth != null && newData.val() === auth.uid"
+      }
+    },
+    "users": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "habits": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "habitData": {
+      "$habitId": {
+        ".read": "root.child($habitId).child('uid').val() === auth.uid",
+        ".write": "root.child($habitId).child('uid').val() === auth.uid"
+      }
     }
   }
 }

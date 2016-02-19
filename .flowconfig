@@ -12,6 +12,7 @@
 [options]
 module.system=node
 module.name_mapper='^.*\(css\)$' -> 'empty/object'
+module.name_mapper='^\(shared.*\)' -> './\1'
 module.name_mapper='^\(shared.*\)' -> '../\1'
 module.name_mapper='^\(shared.*\)' -> '../../\1'
 module.name_mapper='^\(shared.*\)' -> '../../../\1'

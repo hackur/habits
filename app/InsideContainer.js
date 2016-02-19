@@ -1,0 +1,139 @@
+/* @flow */
+
+import type { User } from './user/userTypes'
+import type { RouterLocation } from 'shared/routerTypes'
+import React from 'react'
+import { connect } from 'react-redux'
+import { browserHistory } from 'react-router'
+import * as userActions from './user/userActions'
+import { currentUserSelector } from './user/userSelectors'
+import { userPropTypes } from './user/userTypes'
+import { LOGGED_OUT_UID } from './user/userConstants'
+import { routerLocationPropTypes } from 'shared/routerTypes'
+
+class InsideContainer extends React.Component {
+
+  props: {
+    currentUser: ?User,
+    uid: string,
+    params: Object,
+    location: RouterLocation,
+    dispatch: Function,
+    children: React.Element
+  };
+
+  state: {
+    uid: string,
+    isListening: boolean
+  };
+
+  listenToUser: Function;
+
+  constructor() {
+    super()
+    this.state = {
+      uid: '',
+      isListening: false
+    }
+  }
+
+  handleUser(props) {
+
+    if (props.uid && props.currentUser && !this.state.isListening) {
+
+      userActions.onUser(
+        props.currentUser,
+        userData => {
+          this.props.dispatch(userActions.updateUser(
+            props.uid,
+            user => ({
+              ...user,
+              displayName: userData.displayName || null,
+              username: userData.username || null
+            })
+          ))
+        }
+      )
+
+      this.setState({
+        uid: props.uid,
+        isListening: true
+      })
+
+    }
+
+    if (
+      this.state.isListening &&
+      props.currentUser &&
+      !!props.currentUser.displayName
+    ) {
+
+      // If we hit this condition it means we already kicked off the listening
+      // to user. If username is not null then we have also have fetched the
+      // user once and can know if we need to redirect to choose a username /
+      // check if username in path is correct before allowing them inside the
+      // app
+      if (!props.currentUser.username && props.location.pathname !== '/choose-username') {
+        browserHistory.replace('/choose-username')
+        return
+      }
+
+    }
+
+  }
+
+  /**
+   * Should take care of first application load that they are not logged in and
+   * inside the app
+   */
+  componentWillMount() {
+    if (this.props.uid === LOGGED_OUT_UID) {
+      browserHistory.replace('/login')
+    }
+    this.handleUser(this.props)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.handleUser(nextProps)
+  }
+
+  componentWillUnmount() {
+    if (this.state.isListening) {
+      userActions.offUser(this.state.uid)
+    }
+  }
+
+  render() {
+
+    if (
+      !this.props.currentUser ||
+      !this.props.currentUser.displayName
+    ) {
+      return <div>Loading...</div>
+    }
+
+    return (
+      <div>
+        {this.props.children}
+        <div>
+          {this.props.currentUser.displayName}
+          {' '}
+          <a onClick={() => userActions.logOut()}>
+            Log out
+          </a>
+        </div>
+      </div>
+    )
+  }
+
+}
+
+InsideContainer.propTypes = {
+  currentUser: userPropTypes,
+  uid: React.PropTypes.string.isRequired,
+  params: React.PropTypes.object.isRequired,
+  location: routerLocationPropTypes.isRequired,
+  dispatch: React.PropTypes.func.isRequired
+}
+
+export default connect(currentUserSelector)(InsideContainer)

@@ -54,7 +54,7 @@ module.exports = function(options) {
 
   var cssLoader = options.build ?
     {test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader')} :
-    {test: /\.css$/, loader: 'style-loader!css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]'}
+    {test: /\.css$/, loaders: ['style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]']}
 
   var entry = options.build ?
     ['./app/index'] :
