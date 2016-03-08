@@ -30,33 +30,48 @@ class InsideContainer extends React.Component {
     isListening: boolean
   };
 
-  handleUser: Function;
+  handleUserValue: Function;
 
+  /**
+   * Need to keep uid in state so we can turn off the listener because when the
+   * this component unmounts the currentUser data is already gone
+   */
   constructor() {
     super()
     this.state = {
       uid: '',
       isListening: false
     }
-    this.handleUser = this.handleUser.bind(this)
+    this.handleUserValue = this.handleUserValue.bind(this)
   }
 
-  handleUser(userData) {
-    this.props.dispatch(userActions.updateUser(
-      this.props.uid,
-      user => ({
-        ...user,
-        displayName: userData.displayName || null,
-        username: userData.username || null
-      })
-    ))
+  /**
+   * Will create user if doesn't exist yet
+   */
+  handleUserValue(snapshot) {
+    if (snapshot && snapshot.value) {
+      const userData = snapshot.value
+      this.props.dispatch(userActions.updateUser(
+        this.props.uid,
+        user => ({
+          ...user,
+          displayName: userData.displayName || null,
+          username: userData.username || null
+        })
+      ))
+    } else {
+      // Creates new user in db
+      if (this.props.currentUser) { // To appease flow
+        userActions.createNewUser(this.props.currentUser)
+      }
+    }
   }
 
   loadUser() {
 
     if (this.props.uid && this.props.currentUser && !this.state.isListening) {
 
-      userActions.onUser(this.props.currentUser, this.handleUser)
+      userActions.onUser(this.props.currentUser, this.handleUserValue)
 
       this.setState({
         uid: this.props.uid,
@@ -95,7 +110,7 @@ class InsideContainer extends React.Component {
 
   componentWillUnmount() {
     if (this.state.isListening) {
-      userActions.offUser(this.state.uid, this.handleUser)
+      userActions.offUser(this.state.uid, this.handleUserValue)
     }
   }
 

@@ -46,18 +46,12 @@ export function updateUser(uid: string, update: (x: User) => User): Action {
   }
 }
 
-/**
- * Will create user if doesn't exist yet
- */
-export function onUser(user: User, onUserExists: Function) {
-  firebaseUtils.on('value', user.dataUrl, snapshot => {
-    if (snapshot && snapshot.value) {
-      onUserExists(snapshot.value)
-    } else {
-      // Creates new user
-      firebaseUtils.set(user.dataUrl, userUtils.buildNewUser(user))
-    }
-  })
+export function onUser(user: User, onUserValue: Function) {
+  firebaseUtils.on('value', user.dataUrl, onUserValue)
+}
+
+export function createNewUser(user: User) {
+  firebaseUtils.set(user.dataUrl, userUtils.buildNewUser(user))
 }
 
 export function offUser(uid: string, originalCallback: Function) {
@@ -89,7 +83,7 @@ export function logOut() {
   firebaseUtils.logOut()
 }
 
-export async function fetchIsPrivateUser(username: string): Promise {
+export async function fetchIsPrivateUser(username: string): Promise<Action> {
   const { value } = await firebaseUtils.once('value', `isPrivateUsers/${username}`)
   const entities = {
     isPrivateUsers: {
@@ -97,18 +91,29 @@ export async function fetchIsPrivateUser(username: string): Promise {
     }
   }
   return {
-    type: 'USERS.RECEIVE_IS_PRIVATE_USERS',
+    type: 'USERS.RECEIVE_IS_PRIVATE_USER',
     payload: {
       entities
     }
   }
 }
 
-export function setIsPrivateUser(username: string, isPrivate: boolean): Promise {
-  return firebaseUtils.set(`isPrivateUsers/${username}`, isPrivate)
+export async function setIsPrivateUser(username: string, isPrivate: boolean): Promise<Action> {
+  await firebaseUtils.set(`isPrivateUsers/${username}`, isPrivate)
+  const entities = {
+    isPrivateUsers: {
+      [username]: isPrivate
+    }
+  }
+  return {
+    type: 'USERS.SET_IS_PRIVATE_USER',
+    payload: {
+      entities
+    }
+  }
 }
 
-export async function fetchUsernameUid(username: string): Promise {
+export async function fetchUsernameUid(username: string): Promise<Action> {
   const { value } = await firebaseUtils.once('value', `usernames/${username}`)
   const entities = {
     usernameUids: {

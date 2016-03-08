@@ -35,11 +35,6 @@ export function on(type: string, path: string, callback: Function) {
   })
 }
 
-export async function once(type: string, path: string): Promise<{key: any, value: any}> {
-  const snapshot = await new Firebase(`${__FIREBASE__}${path}`).once(type)
-  return {key: snapshot.key(), value: snapshot.val()}
-}
-
 export function off(type: string, path: string, originalCallback?: Function) {
   const ref = new Firebase(`${__FIREBASE__}${path}`)
   if (originalCallback) {
@@ -47,6 +42,11 @@ export function off(type: string, path: string, originalCallback?: Function) {
   } else {
     ref.off(type)
   }
+}
+
+export async function once(type: string, path: string): Promise<{key: any, value: any}> {
+  const snapshot = await new Firebase(`${__FIREBASE__}${path}`).once(type)
+  return {key: snapshot.key(), value: snapshot.val()}
 }
 
 export function set(path: string, value: any): Promise {
@@ -57,31 +57,21 @@ export function update(path: string, value: any): Promise {
   return new Firebase(`${__FIREBASE__}${path}`).update(value)
 }
 
-export function push(path: string, value: any): Promise {
-  const newRef = new Firebase(`${__FIREBASE__}${path}`).push()
-  return newRef.set(value).then(() => newRef.key())
+export function push(path: string, value: any) {
+  new Firebase(`${__FIREBASE__}${path}`).push(value)
 }
 
 /**
  * http://stackoverflow.com/questions/27978078/how-to-separate-initial-data-load-from-incremental-children-with-firebase
  */
-export async function fetchThenListen(
+export async function listenToAndFetch(
   path: string,
   onChildAdded: Function,
   onChildRemoved: Function
-): Promise {
-  const isLoaded = false
+): Promise<{key: any, value: any}> {
   const ref = new Firebase(`${__FIREBASE__}${path}`)
-  ref.on('child_added', snapshot => {
-    if (isLoaded) {
-      onChildAdded({key: snapshot.key(), value: snapshot.value()})
-    }
-  })
-  ref.on('child_removed', snapshot => {
-    if (isLoaded) {
-      onChildRemoved({key: snapshot.key(), value: snapshot.value()})
-    }
-  })
+  ref.on('child_added', onChildAdded)
+  ref.on('child_removed', onChildRemoved)
   const initialSnapshot = await ref.once('value')
-  return {key: initialSnapshot.key(), value: initialSnapshot.value()}
+  return {key: initialSnapshot.key(), value: initialSnapshot.val()}
 }

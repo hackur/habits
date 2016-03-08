@@ -11,26 +11,9 @@ export function habitLists(
   if (
     action.payload &&
     action.payload.entities &&
-    action.payload.entities.userHabits
+    action.payload.entities.habitLists
   ) {
-
-    const userHabits = action.payload.entities.userHabits
-
-    const newUserHabits = Object.keys(userHabits).reduce((acc, userId) => {
-      const current = state[userId]
-      const newHabits = userHabits[userId]
-      const combined = [...current, ...newHabits]
-      return {
-        ...acc,
-        [userId]: combined
-      }
-    }, {})
-
-    return {
-      ...state,
-      newUserHabits
-    }
-
+    return {...state, ...action.payload.entities.habitLists}
   }
 
   if (action.type === 'HABIT_LISTS.UPDATE_HABIT_LISTS' && action.payload.update) {

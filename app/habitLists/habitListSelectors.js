@@ -2,13 +2,16 @@
 
 import { createSelector } from 'reselect'
 
-export function habitListSelectorFromParams(uid: string): any {
-  return createSelector(
-    state => state.habitLists,
-    state => state.habitListItems,
-    (habitLists, habitListItems) => ({
-      habitList: habitLists[uid].map(habitId => habitListItems[habitId])
-    })
-  )
-}
+export const habitListSelectorFromUsernameUid = createSelector(
+  (_, ownProps) => ownProps.usernameUid,
+  state => state.habitLists,
+  state => state.habitListItems,
+  (usernameUid, habitLists, habitListItems) => {
+    return {
+      habitList: habitLists[usernameUid] ?
+        habitLists[usernameUid].map(habitId => habitListItems[habitId]) :
+        []
+    }
+  }
+)
 
