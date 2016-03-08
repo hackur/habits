@@ -7,7 +7,7 @@
         ".validate": "auth != null && newData.val() === auth.uid"
       }
     },
-    "isPrivateUser": {
+    "isPrivateUsers": {
       "$username": {
         ".read": true,
         ".write": "(!data.exists() && root.child('usernames').child($username).exists()) || root.child('usernames').child($username).val() === auth.uid"
@@ -19,16 +19,16 @@
         ".write": "$uid === auth.uid"
       }
     },
-    "habits": {
+    "habitLists": {
       "$uid": {
         ".read": "$uid === auth.uid",
         ".write": "$uid === auth.uid"
       }
     },
-    "habitData": {
+    "habits": {
       "$habitId": {
-        ".read": "root.child('habits').child(auth.uid).child($habitId).exists()",
-        ".write": "root.child('habits').child(auth.uid).child($habitId).exists()"
+        ".read": "root.child('habitLists').child(auth.uid).child($habitId).exists()",
+        ".write": "root.child('habitLists').child(auth.uid).child($habitId).exists()"
       }
     }
   }

@@ -11,8 +11,13 @@ import type { User } from './userTypes'
 import React from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
+import { createSelector } from 'reselect'
 import * as userActions from './userActions'
-import { currentUserSelector } from './userSelectors'
+import {
+  currentUserSelector,
+  isUsernamePrivateSelector,
+  usernameUidSelector
+} from './userSelectors'
 import { userPropTypes } from './userTypes'
 
 class UserContainer extends React.Component {
@@ -23,9 +28,12 @@ class UserContainer extends React.Component {
 
   props: {
     currentUser: ?User,
+    isUsernamePrivate: ?boolean,
+    usernameUid: ?string,
     params: {
       username: string
     },
+    dispatch: Function,
     children: ?any
   };
 
@@ -40,17 +48,33 @@ class UserContainer extends React.Component {
     this.checkIsPrivate()
   }
 
+  componentDidUpdate() {
+    this.redirect()
+  }
+
+  async checkIsPrivate() {
+    if (this.props.usernameUid === undefined) {
+      await this.props.dispatch(userActions.fetchUsernameUid(this.props.params.username))
+    }
+    if (this.props.isUsernamePrivate === undefined) {
+      await this.props.dispatch(userActions.fetchIsPrivateUser(this.props.params.username))
+    }
+    this.redirect()
+  }
+
   /**
    * - Redirect if logged in and not on your own username and the username
    * is private
    * - Don't redirect if logged out and user has specified that their page
    * is not private
    */
-  async checkIsPrivate() {
+  async redirect() {
 
-    const { value } = await userActions.fetchIsPrivateUser(this.props.params.username)
+    if (this.props.isUsernamePrivate === undefined) {
+      return
+    }
 
-    if (value === null) { // Value doesn't exist!
+    if (this.props.isUsernamePrivate === null) {
       try {
         await userActions.setIsPrivateUser(this.props.params.username, true)
       } catch(e) {
@@ -61,7 +85,7 @@ class UserContainer extends React.Component {
     }
 
     const shouldRedirect =
-      (value || value === null) &&
+      (this.props.isUsernamePrivate || this.props.isUsernamePrivate === null) &&
       (!this.props.currentUser || this.props.currentUser.username !== this.props.params.username)
 
     if (shouldRedirect) {
@@ -69,7 +93,9 @@ class UserContainer extends React.Component {
       return
     }
 
-    this.setState({didCheckIsPrivate: true})
+    if (!this.state.didCheckIsPrivate) {
+      this.setState({didCheckIsPrivate: true})
+    }
 
   }
 
@@ -87,7 +113,19 @@ class UserContainer extends React.Component {
 
 UserContainer.propTypes = {
   currentUser: userPropTypes,
+  isUsernamePrivate: React.PropTypes.bool,
+  usernameUid: React.PropTypes.string,
+  dispatch: React.PropTypes.func.isRequired,
   params: React.PropTypes.object.isRequired
 }
 
-export default connect(currentUserSelector)(UserContainer)
+export default connect(createSelector(
+  currentUserSelector,
+  isUsernamePrivateSelector,
+  usernameUidSelector,
+  ({ currentUser }, { isUsernamePrivate }, { usernameUid }) => ({
+    currentUser,
+    isUsernamePrivate,
+    usernameUid
+  })
+))(UserContainer)

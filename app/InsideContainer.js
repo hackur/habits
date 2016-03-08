@@ -30,7 +30,7 @@ class InsideContainer extends React.Component {
     isListening: boolean
   };
 
-  listenToUser: Function;
+  handleUser: Function;
 
   constructor() {
     super()
@@ -38,28 +38,28 @@ class InsideContainer extends React.Component {
       uid: '',
       isListening: false
     }
+    this.handleUser = this.handleUser.bind(this)
   }
 
-  handleUser(props) {
+  handleUser(userData) {
+    this.props.dispatch(userActions.updateUser(
+      this.props.uid,
+      user => ({
+        ...user,
+        displayName: userData.displayName || null,
+        username: userData.username || null
+      })
+    ))
+  }
 
-    if (props.uid && props.currentUser && !this.state.isListening) {
+  loadUser() {
 
-      userActions.onUser(
-        props.currentUser,
-        userData => {
-          this.props.dispatch(userActions.updateUser(
-            props.uid,
-            user => ({
-              ...user,
-              displayName: userData.displayName || null,
-              username: userData.username || null
-            })
-          ))
-        }
-      )
+    if (this.props.uid && this.props.currentUser && !this.state.isListening) {
+
+      userActions.onUser(this.props.currentUser, this.handleUser)
 
       this.setState({
-        uid: props.uid,
+        uid: this.props.uid,
         isListening: true
       })
 
@@ -67,8 +67,8 @@ class InsideContainer extends React.Component {
 
     if (
       this.state.isListening &&
-      props.currentUser &&
-      !!props.currentUser.displayName
+      this.props.currentUser &&
+      !!this.props.currentUser.displayName
     ) {
 
       // If we hit this condition it means we already kicked off the listening
@@ -76,7 +76,7 @@ class InsideContainer extends React.Component {
       // user once and can know if we need to redirect to choose a username /
       // check if username in path is correct before allowing them inside the
       // app
-      if (!props.currentUser.username && props.location.pathname !== '/choose-username') {
+      if (!this.props.currentUser.username && this.props.location.pathname !== '/choose-username') {
         browserHistory.replace('/choose-username')
         return
       }
@@ -86,16 +86,16 @@ class InsideContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.handleUser(this.props)
+    this.loadUser()
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.handleUser(nextProps)
+  componentDidUpdate() {
+    this.loadUser()
   }
 
   componentWillUnmount() {
     if (this.state.isListening) {
-      userActions.offUser(this.state.uid)
+      userActions.offUser(this.state.uid, this.handleUser)
     }
   }
 

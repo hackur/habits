@@ -15,7 +15,7 @@ export function receiveLoggedIn(auth: RawAuth): Action {
   const entities = {users}
 
   return {
-    type: 'USER.RECEIVE_LOGGED_IN',
+    type: 'CURRENT_USER.RECEIVE_LOGGED_IN',
     payload: {
       uid: auth.uid,
       entities
@@ -26,7 +26,7 @@ export function receiveLoggedIn(auth: RawAuth): Action {
 
 export function receiveLoggedOut(): Action {
   return {
-    type: 'USER.RECEIVE_LOGGED_OUT',
+    type: 'CURRENT_USER.RECEIVE_LOGGED_OUT',
     payload: {
       uid: LOGGED_OUT_UID
     }
@@ -39,7 +39,7 @@ export function initApp(onLoggedIn: Function, onLoggedOut: Function) {
 
 export function updateUser(uid: string, update: (x: User) => User): Action {
   return {
-    type: 'USER.UPDATE_USERS',
+    type: 'USERS.UPDATE_USERS',
     payload: {
       update: users => ({...users, [uid]: update(users[uid])})
     }
@@ -60,8 +60,8 @@ export function onUser(user: User, onUserExists: Function) {
   })
 }
 
-export function offUser(uid: string) {
-  firebaseUtils.off('value', `users/${uid}`)
+export function offUser(uid: string, originalCallback: Function) {
+  firebaseUtils.off('value', `users/${uid}`, originalCallback)
 }
 
 export function setUsername(user: User, username: string): Promise {
@@ -89,10 +89,36 @@ export function logOut() {
   firebaseUtils.logOut()
 }
 
-export function fetchIsPrivateUser(username: string): Promise {
-  return firebaseUtils.once('value', `isPrivateUser/${username}`)
+export async function fetchIsPrivateUser(username: string): Promise {
+  const { value } = await firebaseUtils.once('value', `isPrivateUsers/${username}`)
+  const entities = {
+    isPrivateUsers: {
+      [username]: value
+    }
+  }
+  return {
+    type: 'USERS.RECEIVE_IS_PRIVATE_USERS',
+    payload: {
+      entities
+    }
+  }
 }
 
 export function setIsPrivateUser(username: string, isPrivate: boolean): Promise {
-  return firebaseUtils.set(`isPrivateUser/${username}`, isPrivate)
+  return firebaseUtils.set(`isPrivateUsers/${username}`, isPrivate)
+}
+
+export async function fetchUsernameUid(username: string): Promise {
+  const { value } = await firebaseUtils.once('value', `usernames/${username}`)
+  const entities = {
+    usernameUids: {
+      [username]: value
+    }
+  }
+  return {
+    type: 'USERS.RECEIVE_USERNAME_UID',
+    payload: {
+      entities
+    }
+  }
 }

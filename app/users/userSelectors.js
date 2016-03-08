@@ -10,3 +10,19 @@ export const currentUserSelector = createSelector(
     uid
   })
 )
+
+export const isUsernamePrivateSelector = createSelector(
+  (_, ownProps) => ownProps.params,
+  state => state.isPrivateUsers,
+  (params, isPrivateUsers) => ({
+    isUsernamePrivate: isPrivateUsers[params.username]
+  })
+)
+
+export const usernameUidSelector = createSelector(
+  (_, ownProps) => ownProps.params,
+  state => state.usernameUids,
+  (params, usernameUids) => ({
+    usernameUid: usernameUids[params.username]
+  })
+)

@@ -1,7 +1,7 @@
 /* @flow */
 
 import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
+import { thunkMiddleware, promiseMiddleware } from './storeMiddleware'
 import rootReducer from './reducers'
 import DevTools from './DevTools'
 
@@ -11,7 +11,7 @@ export default function configureStore(initialState: any): any {
     rootReducer,
     initialState,
     compose(
-      applyMiddleware(thunk),
+      applyMiddleware(thunkMiddleware, promiseMiddleware),
       DevTools.instrument()
     )
   )

@@ -4,17 +4,21 @@ import { routerReducer as routing } from 'react-router-redux'
 import { combineReducers } from 'redux'
 import {
   uid,
-  users
+  users,
+  usernameUids,
+  isPrivateUsers
 } from './users/userReducers'
 import {
-  userHabits,
+  habitLists,
   habitListItems
 } from './habitLists/habitListReducers'
 
 const rootReducer = combineReducers({
   uid,
   users,
-  userHabits,
+  usernameUids,
+  isPrivateUsers,
+  habitLists,
   habitListItems,
   routing
 })

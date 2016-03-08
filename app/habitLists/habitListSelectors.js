@@ -2,12 +2,12 @@
 
 import { createSelector } from 'reselect'
 
-export function userHabitsSelectorFactory(uid: string): any {
+export function habitListSelectorFromParams(uid: string): any {
   return createSelector(
-    state => state.userHabits,
+    state => state.habitLists,
     state => state.habitListItems,
-    (userHabits, habitListItems) => ({
-      habitList: userHabits[uid].map(habitId => habitListItems[habitId])
+    (habitLists, habitListItems) => ({
+      habitList: habitLists[uid].map(habitId => habitListItems[habitId])
     })
   )
 }

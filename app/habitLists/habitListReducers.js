@@ -3,7 +3,7 @@
 import type { HabitListItem } from './habitListTypes'
 import type { Action } from 'shared/reduxTypes'
 
-export function userHabits(
+export function habitLists(
   state: {[key: string]: Array<string>} = {},
   action: Action
 ): any {
@@ -33,7 +33,7 @@ export function userHabits(
 
   }
 
-  if (action.type === 'HABIT_LIST.UPDATE_USER_HABITS' && action.payload.update) {
+  if (action.type === 'HABIT_LISTS.UPDATE_HABIT_LISTS' && action.payload.update) {
     return action.payload.update(state)
   }
 
@@ -54,7 +54,7 @@ export function habitListItems(
     return {...state, ...action.payload.entities.habitListItems}
   }
 
-  if (action.type === 'HABIT_LIST.UPDATE_HABIT_LIST_ITEMS' && action.payload.update) {
+  if (action.type === 'HABIT_LISTS.UPDATE_HABIT_LIST_ITEMS' && action.payload.update) {
     return action.payload.update(state)
   }
 

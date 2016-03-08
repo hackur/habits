@@ -17,15 +17,24 @@ class LoggingInContainer extends React.Component {
     currentUser: User
   };
 
-  componentWillMount() {
+  redirect() {
     if (this.props.currentUser && !!this.props.currentUser.username) {
       browserHistory.replace(`/${this.props.currentUser.username}`)
     }
   }
 
+  componentWillMount() {
+    this.redirect()
+  }
+
+  componentDidUpdate() {
+    this.redirect()
+  }
+
   render() {
     return (
       <div>
+        Loading...
       </div>
     )
   }

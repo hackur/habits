@@ -12,7 +12,7 @@ the user's habits's private setting as well or keep as is.
   "usernames": {
     "$username": "$uid"
   },
-  "isPrivateUser": {
+  "isPrivateUsers": {
     "$username": true
   },
   "users": {
@@ -21,7 +21,7 @@ the user's habits's private setting as well or keep as is.
       "displayName": "$displayName"
     }
   },
-  "habits": {
+  "habitLists": {
     "$uid": {
       "$habitId": {
         "name": "Habit name",
@@ -33,10 +33,10 @@ the user's habits's private setting as well or keep as is.
       }
     }
   },
-  "isPrivateHabit": {
+  "isPrivateHabits": {
     "$habitId": true
   },
-  "habitData": {
+  "habits": {
     "$habitId": { 
       "2016-02-01": {
         "ts": 135235241,
