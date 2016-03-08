@@ -1,13 +1,13 @@
 /* @flow */
 
-import type { User } from './user/userTypes'
+import type { User } from './users/userTypes'
 import React from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import * as userActions from './user/userActions'
-import { LOGGED_OUT_UID } from './user/userConstants'
-import { currentUserSelector } from './user/userSelectors'
-import { userPropTypes } from './user/userTypes'
+import * as userActions from './users/userActions'
+import { LOGGED_OUT_UID } from './users/userConstants'
+import { currentUserSelector } from './users/userSelectors'
+import { userPropTypes } from './users/userTypes'
 
 class AppContainer extends React.Component {
 

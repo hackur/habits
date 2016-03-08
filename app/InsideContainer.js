@@ -4,14 +4,14 @@
  * @flow
  */
 
-import type { User } from './user/userTypes'
+import type { User } from './users/userTypes'
 import type { RouterLocation } from 'shared/routerTypes'
 import React from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import * as userActions from './user/userActions'
-import { currentUserSelector } from './user/userSelectors'
-import { userPropTypes } from './user/userTypes'
+import * as userActions from './users/userActions'
+import { currentUserSelector } from './users/userSelectors'
+import { userPropTypes } from './users/userTypes'
 import { routerLocationPropTypes } from 'shared/routerTypes'
 
 class InsideContainer extends React.Component {

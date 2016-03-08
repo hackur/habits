@@ -1,12 +1,12 @@
 /* @flow */
 
-import type { User } from './user/userTypes'
+import type { User } from './users/userTypes'
 import React from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import * as userActions from './user/userActions'
-import { userPropTypes } from './user/userTypes'
-import { currentUserSelector } from './user/userSelectors'
+import * as userActions from './users/userActions'
+import { userPropTypes } from './users/userTypes'
+import { currentUserSelector } from './users/userSelectors'
 
 class ChooseUsernameContainer extends React.Component {
 

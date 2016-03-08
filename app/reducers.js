@@ -5,11 +5,11 @@ import { combineReducers } from 'redux'
 import {
   uid,
   users
-} from './user/userReducers'
+} from './users/userReducers'
 import {
   userHabits,
   habitListItems
-} from './habitList/habitListReducers'
+} from './habitLists/habitListReducers'
 
 const rootReducer = combineReducers({
   uid,

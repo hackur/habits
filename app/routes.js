@@ -7,8 +7,8 @@ import LoginContainer from './LoginContainer'
 import LoggingInContainer from './LoggingInContainer'
 import ChooseUsernameContainer from './ChooseUsernameContainer'
 import InsideContainer from './InsideContainer'
-import UserContainer from './user/UserContainer'
-import HabitListContainer from './habitList/HabitListContainer'
+import UserContainer from './users/UserContainer'
+import HabitListContainer from './habitLists/HabitListContainer'
 
 export default (
   <Route path="/" component={AppContainer}>

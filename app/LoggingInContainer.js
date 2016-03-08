@@ -4,12 +4,12 @@
  * @flow
  */
 
-import type { User } from './user/userTypes'
+import type { User } from './users/userTypes'
 import React from 'react'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
-import { currentUserSelector } from './user/userSelectors'
-import { userPropTypes } from './user/userTypes'
+import { currentUserSelector } from './users/userSelectors'
+import { userPropTypes } from './users/userTypes'
 
 class LoggingInContainer extends React.Component {
 
