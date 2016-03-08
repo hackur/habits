@@ -12,7 +12,7 @@ import HabitListContainer from './habitList/HabitListContainer'
 
 export default (
   <Route path="/" component={AppContainer}>
-    <Route path="login" component={LoginContainer} />
+    <IndexRoute component={LoginContainer} />
     <Route component={InsideContainer}>
       <Route path="logging-in" component={LoggingInContainer} />
       <Route path="choose-username" component={ChooseUsernameContainer} />

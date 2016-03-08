@@ -1,15 +1,15 @@
 /* @flow */
 
 import type { RawAuth, User } from './userTypes'
+import type { Action } from 'shared/reduxTypes'
 import * as userUtils from './userUtils'
 import { LOGGED_OUT_UID } from './userConstants'
 import * as firebaseUtils from 'shared/firebaseUtils'
-import { Action } from 'shared/reduxTypes'
 
 export function receiveLoggedIn(auth: RawAuth): Action {
 
   const users = {
-    [auth.uid]: userUtils.convertRawUser(auth)
+    [auth.uid]: userUtils.convertRawAuth(auth)
   }
 
   const entities = {users}
@@ -87,4 +87,12 @@ export async function authWithTwitter(): Promise {
 
 export function logOut() {
   firebaseUtils.logOut()
+}
+
+export function fetchIsPrivateUser(username: string): Promise {
+  return firebaseUtils.once('value', `isPrivateUser/${username}`)
+}
+
+export function setIsPrivateUser(username: string, isPrivate: boolean): Promise {
+  return firebaseUtils.set(`isPrivateUser/${username}`, isPrivate)
 }

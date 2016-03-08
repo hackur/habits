@@ -1,4 +1,8 @@
-/* @flow */
+/**
+ * For after receiving user auth object
+ *
+ * @flow
+ */
 
 import type { User } from './user/userTypes'
 import type { RouterLocation } from 'shared/routerTypes'
@@ -8,7 +12,6 @@ import { browserHistory } from 'react-router'
 import * as userActions from './user/userActions'
 import { currentUserSelector } from './user/userSelectors'
 import { userPropTypes } from './user/userTypes'
-import { LOGGED_OUT_UID } from './user/userConstants'
 import { routerLocationPropTypes } from 'shared/routerTypes'
 
 class InsideContainer extends React.Component {
@@ -82,14 +85,7 @@ class InsideContainer extends React.Component {
 
   }
 
-  /**
-   * Should take care of first application load that they are not logged in and
-   * inside the app
-   */
   componentWillMount() {
-    if (this.props.uid === LOGGED_OUT_UID) {
-      browserHistory.replace('/login')
-    }
     this.handleUser(this.props)
   }
 
@@ -104,24 +100,9 @@ class InsideContainer extends React.Component {
   }
 
   render() {
-
-    if (
-      !this.props.currentUser ||
-      !this.props.currentUser.displayName
-    ) {
-      return <div>Loading...</div>
-    }
-
     return (
       <div>
         {this.props.children}
-        <div>
-          {this.props.currentUser.displayName}
-          {' '}
-          <a onClick={() => userActions.logOut()}>
-            Log out
-          </a>
-        </div>
       </div>
     )
   }

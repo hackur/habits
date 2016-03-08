@@ -1,18 +1,21 @@
 /* @flow */
 
+import type { User } from './user/userTypes'
 import React from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import * as userActions from './user/userActions'
 import { LOGGED_OUT_UID } from './user/userConstants'
 import { currentUserSelector } from './user/userSelectors'
+import { userPropTypes } from './user/userTypes'
 
 class AppContainer extends React.Component {
 
   props: {
-    children: Function,
+    children: ?any,
     dispatch: Function,
-    uid: ?string
+    uid: ?string,
+    currentUser: ?User
   };
 
   /**
@@ -31,7 +34,7 @@ class AppContainer extends React.Component {
    */
   componentWillReceiveProps(nextProps) {
     if (this.props.uid !== null && this.props.uid !== LOGGED_OUT_UID && nextProps.uid === LOGGED_OUT_UID) {
-      browserHistory.push('/login')
+      browserHistory.push('/')
     }
   }
 
@@ -48,6 +51,15 @@ class AppContainer extends React.Component {
     return (
       <div>
         {this.props.children}
+        {this.props.currentUser && this.props.currentUser.displayName &&
+          <div>
+            {this.props.currentUser.displayName}
+            {' '}
+            <a onClick={() => userActions.logOut()}>
+              Log out
+            </a>
+          </div>
+        }
       </div>
     )
 
@@ -57,7 +69,8 @@ class AppContainer extends React.Component {
 
 AppContainer.propTypes = {
   dispatch: React.PropTypes.func.isRequired,
-  uid: React.PropTypes.string
+  uid: React.PropTypes.string,
+  currentUser: userPropTypes
 }
 
 export default connect(currentUserSelector)(AppContainer)

@@ -35,8 +35,9 @@ export function on(type: string, path: string, callback: Function) {
   })
 }
 
-export function once(type: string, path: string): Promise {
-  return new Firebase(`${__FIREBASE__}${path}`).once(type)
+export async function once(type: string, path: string): Promise {
+  const snapshot = await new Firebase(`${__FIREBASE__}${path}`).once(type)
+  return {key: snapshot.key(), value: snapshot.val()}
 }
 
 export function off(type: string, path: string){
@@ -45,6 +46,10 @@ export function off(type: string, path: string){
 
 export function set(path: string, value: any): Promise {
   return new Firebase(`${__FIREBASE__}${path}`).set(value)
+}
+
+export function update(path: string, value: any): Promise {
+  return new Firebase(`${__FIREBASE__}${path}`).update(value)
 }
 
 export function push(path: string, value: any): Promise {

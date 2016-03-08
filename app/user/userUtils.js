@@ -8,7 +8,7 @@ export function buildNewUser(user: User): NewUser {
   }
 }
 
-export function convertRawUser(auth: RawAuth): User {
+export function convertRawAuth(auth: RawAuth): User {
   return {
     uid: auth.uid,
     auth: auth,
