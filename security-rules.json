@@ -1,8 +1,35 @@
 {
   "rules": {
-    "$uid": {
-      ".read": "$uid === auth.uid",
-      ".write": "$uid === auth.uid"
+    "usernames": {
+      "$username": {
+        ".read": true,
+        ".write": "root.child('users').child(auth.uid).child('username').val() === $username",
+        ".validate": "auth != null && newData.val() === auth.uid"
+      }
+    },
+    "isPrivateUsers": {
+      "$username": {
+        ".read": true,
+        ".write": "(!data.exists() && root.child('usernames').child($username).exists()) || root.child('usernames').child($username).val() === auth.uid"
+      }
+    },
+    "users": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "habitLists": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "habits": {
+      "$habitId": {
+        ".read": "root.child('habitLists').child(auth.uid).child($habitId).exists()",
+        ".write": "root.child('habitLists').child(auth.uid).child($habitId).exists()"
+      }
     }
   }
 }
